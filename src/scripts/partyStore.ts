@@ -1,9 +1,3 @@
-export interface BirthdayWish {
-  name: string;
-  status: string;
-  text: string;
-}
-
 export interface PartyState {
   name: string;
   age: string;
@@ -12,11 +6,11 @@ export interface PartyState {
   venue: string;
   dressCode: string;
   surpriseMessage: string;
+  wandActivated: boolean;
   candlesLit: [boolean, boolean, boolean];
   doorOpen: boolean;
-  step: 1 | 2 | 3; // 1: Blow Candles, 2: Open Door #3, 3: Invitation Revealed
+  step: 1 | 2 | 3 | 4; // 1: Acto 1 (Magia del Hada), 2: Acto 2 (Deseo Real / Velas), 3: Acto 3 (Puerta #4), 4: Cuento Completado
   audioEnabled: boolean;
-  wishes: BirthdayWish[];
 }
 
 export const partyState: PartyState = {
@@ -24,26 +18,15 @@ export const partyState: PartyState = {
   age: '4',
   dateISO: '2026-11-14',
   timeText: '3:00 PM – 6:30 PM',
-  venue: 'El Jardín de Rosas Encantado, Calle de las Hadas 124',
+  venue: 'Casa Club, Condominio Uniko San Francisco',
   dressCode: 'Rosa Pastel, Crema y un Toque de Dorado',
   surpriseMessage:
     '"¡Ponte tu vestido de princesa favorito, piquito! ¡Tus mejores amigos, familiares, seres queridos y este pastel de castillo de hadas te están esperando solo a ti!"',
+  wandActivated: false,
   candlesLit: [true, true, true],
   doorOpen: false,
   step: 1,
   audioEnabled: true,
-  wishes: [
-    {
-      name: 'Abuelita y Abuelito',
-      status: '✨ ¡Asistiremos con alegría!',
-      text: '¡Feliz 4.º cumpleaños a nuestra más dulce princesita de las hadas!',
-    },
-    {
-      name: 'Tía Elena y Maya',
-      status: '✨ ¡Asistiremos con alegría!',
-      text: '¡No podemos esperar para celebrar contigo en tu castillo real!',
-    },
-  ],
 };
 
 export function formatReadableDate(isoDateString: string): string {

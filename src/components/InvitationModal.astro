@@ -212,94 +212,27 @@
 					>
 				</div>
 
-				<!-- Interactive RSVP & Share Actions -->
+				<!-- Simplified Footer Actions (Celebrate with Confetti & Close / Back to Cake) -->
 				<div
-					class="flex flex-wrap items-center justify-center gap-3 pt-2 border-t border-palette-gray"
+					class="flex flex-wrap items-center justify-center gap-3 pt-3 border-t border-palette-gray"
 				>
 					<button
 						type="button"
-						data-action="toggle-rsvp"
+						data-action="celebrate"
 						class="py-3 px-6 rounded-xl gold-badge text-white font-bold text-sm shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer"
 					>
-						<span aria-hidden="true">🎉</span>
-						<span>Deja un Deseo / Confirmar Asistencia</span>
-					</button>
-					<button
-						type="button"
-						data-action="copy-invite"
-						class="py-3 px-5 rounded-xl bg-palette-gray hover:bg-palette-pink/40 text-palette-brown font-bold text-sm border border-palette-rose/60 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
-					>
-						<span aria-hidden="true">📋</span>
-						<span id="copy-btn-label">Copiar Detalles</span>
-					</button>
-					<button
-						type="button"
-						data-action="celebrate"
-						class="py-3 px-5 rounded-xl bg-palette-pink/50 hover:bg-palette-pink text-palette-brown font-bold text-sm transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
-					>
 						<span aria-hidden="true">🎊</span>
-						<span>¡Lluvia de Confeti!</span>
+						<span>Celebrar con Confeti</span>
+					</button>
+					<button
+						type="button"
+						data-action="close-modal"
+						class="py-3 px-6 rounded-xl bg-palette-gray hover:bg-palette-pink/40 text-palette-brown font-bold text-sm border border-palette-rose/60 transition-all flex items-center gap-2 active:scale-95 cursor-pointer"
+					>
+						<span aria-hidden="true">🎂</span>
+						<span>Cerrar / Volver al Pastel</span>
 					</button>
 				</div>
-
-				<!-- Collapsible RSVP / Birthday Wish Wall Web Component -->
-				<rsvp-wall class="block">
-					<div
-						id="rsvp-drawer"
-						class="hidden mt-5 pt-5 border-t border-palette-pink text-left"
-					>
-						<h4
-							class="font-bold text-sm text-palette-brown mb-3 flex items-center gap-1.5"
-						>
-							<span aria-hidden="true">💌</span> Enviar un Deseo Real
-							o Confirmar Asistencia
-						</h4>
-						<form
-							id="rsvp-form"
-							class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4"
-						>
-							<input
-								id="rsvp-guest-name"
-								type="text"
-								required
-								placeholder="Tu Nombre (ej., Tía Sofía)"
-								aria-label="Tu Nombre"
-								class="px-3.5 py-2.5 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown focus:outline-none focus:border-palette-gold"
-							/>
-							<select
-								id="rsvp-attendance"
-								aria-label="Estado de Asistencia"
-								class="px-3.5 py-2.5 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown focus:outline-none focus:border-palette-gold"
-							>
-								<option value="attending"
-									>✨ ¡Asistiremos con alegría!</option
-								>
-								<option value="wishes"
-									>💖 Enviando cálidos deseos desde lejos</option
-								>
-							</select>
-							<input
-								id="rsvp-wish-text"
-								type="text"
-								required
-								placeholder="Escribe un dulce mensaje de cumpleaños para la princesa..."
-								aria-label="Mensaje de Cumpleaños"
-								class="sm:col-span-2 px-3.5 py-2.5 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown focus:outline-none focus:border-palette-gold"
-							/>
-							<button
-								type="submit"
-								class="sm:col-span-2 py-2.5 rounded-xl bg-palette-brown hover:bg-palette-darkBrown text-white font-bold text-sm transition-all cursor-pointer"
-							>
-								Publicar Deseo de Cumpleaños ✨
-							</button>
-						</form>
-						<div
-							id="wishes-list"
-							class="space-y-2 max-h-36 overflow-y-auto pr-1"
-						>
-						</div>
-					</div>
-				</rsvp-wall>
 			</div>
 		</div>
 	</div>
@@ -309,11 +242,8 @@
 	import {
 		partyState,
 		formatReadableDate,
-		createParticles,
-		showToast,
 	} from "../scripts/partyStore";
 	import {
-		playSparkleChime,
 		celebrateGrandFinale,
 	} from "../scripts/audioManager";
 
@@ -358,78 +288,6 @@
 		}
 	}
 
-	class RsvpWallElement extends HTMLElement {
-		public toggleDrawer() {
-			const drawer = this.querySelector("#rsvp-drawer");
-			drawer?.classList.toggle("hidden");
-			this.renderWishesList();
-		}
-
-		public renderWishesList() {
-			const container = this.querySelector("#wishes-list");
-			if (!container) return;
-			container.innerHTML = partyState.wishes
-				.map(
-					(w) => `
-				<div class="bg-palette-mint p-3 rounded-xl border border-palette-pink/70 text-xs">
-					<div class="flex items-center justify-between font-bold text-palette-brown mb-0.5">
-						<span>👑 ${w.name}</span>
-						<span class="text-[10px] text-palette-gold">${w.status}</span>
-					</div>
-					<p class="text-palette-brown/85 italic">"${w.text}"</p>
-				</div>
-			`,
-				)
-				.join("");
-		}
-
-		connectedCallback() {
-			this.renderWishesList();
-			const form = this.querySelector(
-				"#rsvp-form",
-			) as HTMLFormElement | null;
-			form?.addEventListener("submit", (event) => {
-				event.preventDefault();
-				const nameInput = this.querySelector(
-					"#rsvp-guest-name",
-				) as HTMLInputElement | null;
-				const attendanceSelect = this.querySelector(
-					"#rsvp-attendance",
-				) as HTMLSelectElement | null;
-				const wishInput = this.querySelector(
-					"#rsvp-wish-text",
-				) as HTMLInputElement | null;
-
-				const guestName = nameInput?.value.trim() || "";
-				const statusText =
-					attendanceSelect?.options[attendanceSelect.selectedIndex]
-						?.text || "✨ ¡Asistiremos con alegría!";
-				const wishText = wishInput?.value.trim() || "";
-
-				if (!guestName || !wishText) return;
-
-				partyState.wishes.unshift({
-					name: guestName,
-					status: statusText,
-					text: wishText,
-				});
-
-				if (nameInput) nameInput.value = "";
-				if (wishInput) wishInput.value = "";
-				this.renderWishesList();
-				playSparkleChime();
-				createParticles(
-					window.innerWidth / 2,
-					window.innerHeight / 2,
-					30,
-				);
-				showToast(
-					`¡Gracias, ${guestName}! ¡Se añadió tu deseo de cumpleaños!`,
-				);
-			});
-		}
-	}
-
 	class InvitationModalElement extends HTMLElement {
 		private openModal = () => {
 			const modal = this.querySelector("#invitation-modal");
@@ -459,58 +317,15 @@
 			if (surpriseEl) surpriseEl.textContent = partyState.surpriseMessage;
 		};
 
-		private copyInvitationText = async () => {
-			const inviteSummary =
-				`👑 ¡Estás invitado a la Fiesta del ${partyState.age}.º Cumpleaños de la Princesa ${partyState.name}! 🏰✨\n` +
-				`📅 Fecha: ${formatReadableDate(partyState.dateISO)}\n` +
-				`⏰ Hora: ${partyState.timeText}\n` +
-				`📍 Lugar: ${partyState.venue}\n` +
-				`👗 Código de Vestimenta: ${partyState.dressCode}\n` +
-				`💖 ${partyState.surpriseMessage}`;
-
-			try {
-				await navigator.clipboard.writeText(inviteSummary);
-			} catch {
-				const tempInput = document.createElement("textarea");
-				tempInput.value = inviteSummary;
-				document.body.appendChild(tempInput);
-				tempInput.select();
-				document.execCommand("copy");
-				document.body.removeChild(tempInput);
-			}
-
-			const copyLabel = this.querySelector("#copy-btn-label");
-			if (copyLabel) {
-				copyLabel.textContent = "¡Copiado al Portapapeles! ✨";
-				setTimeout(() => {
-					copyLabel.textContent = "Copiar Detalles";
-				}, 2500);
-			}
-			showToast(
-				"¡Detalles de la invitación real copiados al portapapeles!",
-			);
-		};
-
 		connectedCallback() {
 			this.syncCardDetails();
 
-			this.querySelector('[data-action="close-modal"]')?.addEventListener(
-				"click",
-				this.closeModal,
-			);
-			this.querySelector('[data-action="toggle-rsvp"]')?.addEventListener(
-				"click",
-				() => {
-					const rsvpWall = this.querySelector(
-						"rsvp-wall",
-					) as RsvpWallElement | null;
-					rsvpWall?.toggleDrawer();
+			this.querySelectorAll('[data-action="close-modal"]').forEach(
+				(btn) => {
+					btn.addEventListener("click", this.closeModal);
 				},
 			);
-			this.querySelector('[data-action="copy-invite"]')?.addEventListener(
-				"click",
-				this.copyInvitationText,
-			);
+
 			this.querySelector('[data-action="celebrate"]')?.addEventListener(
 				"click",
 				celebrateGrandFinale,
@@ -534,9 +349,6 @@
 
 	if (!customElements.get("countdown-timer")) {
 		customElements.define("countdown-timer", CountdownTimerElement);
-	}
-	if (!customElements.get("rsvp-wall")) {
-		customElements.define("rsvp-wall", RsvpWallElement);
 	}
 	if (!customElements.get("invitation-modal")) {
 		customElements.define("invitation-modal", InvitationModalElement);

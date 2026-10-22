@@ -5,7 +5,7 @@
 		class="mb-1 px-4 py-1.5 rounded-full bg-white border-2 border-palette-gold shadow-md text-xs sm:text-sm font-bold text-palette-brown flex items-center gap-2 animate-bounce"
 	>
 		<span aria-hidden="true">✨</span>
-		<span id="bubble-text">¡Toca las velas brillantes del castillo o la varita estrellada del hada!</span>
+		<span id="bubble-text">¡Toca a la princesita hada o su varita estrellada para despertar la magia! 🪄✨</span>
 	</div>
 
 	<!-- Interactive SVG Cake Container -->
@@ -188,7 +188,7 @@
 			</g>
 
 			<!-- ==================== 3. SCALLOPED BIRTHDAY PLAQUE (TOP RIGHT) ==================== -->
-			<g id="birthday-plaque" class="cursor-pointer" data-cake-action="open-invitation" filter="url(#plaque-shadow)">
+			<g id="birthday-plaque" class="cursor-pointer" data-cake-action="wand" filter="url(#plaque-shadow)">
 				<!-- Outer Pink Scalloped Edge -->
 				<circle cx="338" cy="176" r="59" fill="#E6C0CF"></circle>
 				<!-- Scallop bumps around circle -->
@@ -496,10 +496,30 @@
 				const wandY = svgRect.top + svgRect.height * 0.64;
 				createParticles(wandX, wandY, 35);
 			}
-			showToast(`¡La varita de hada de ${partyState.name} lanzó un deseo mágico de cumpleaños!`);
+
+			if (partyState.step === 1) {
+				partyState.wandActivated = true;
+				partyState.step = 2;
+				const bubbleText = this.querySelector('#bubble-text');
+				if (bubbleText) {
+					bubbleText.textContent =
+						'¡Pide un deseo y toca las 3 velas encendidas del castillo para soplarlas! 🕯️✨';
+				}
+				emitPartyEvent('party:step-changed');
+				showToast(
+					'¡La varita mágica despertó el castillo! Ahora pide un deseo y sopla las 3 velas.'
+				);
+			} else {
+				showToast(`¡La varita de hada de ${partyState.name} lanzó polvo de estrellas mágico!`);
+			}
 		};
 
 		private blowCandle = (index: number) => {
+			if (partyState.step === 1) {
+				playSparkleChime();
+				showToast('🪄 ¡Primero toca a la princesita hada para despertar la magia del pastel!');
+				return;
+			}
 			if (!partyState.candlesLit[index]) return;
 			partyState.candlesLit[index] = false;
 			const flameEl = this.querySelector(`#flame-${index}`) as HTMLElement | SVGElement | null;
@@ -520,6 +540,11 @@
 		};
 
 		private blowAllCandles = () => {
+			if (partyState.step === 1) {
+				playSparkleChime();
+				showToast('🪄 ¡Primero toca a la princesita hada para despertar la magia del pastel!');
+				return;
+			}
 			let anyLit = false;
 			([0, 1, 2] as const).forEach((idx, delayIdx) => {
 				if (partyState.candlesLit[idx]) {
@@ -528,14 +553,14 @@
 				}
 			});
 			if (!anyLit) {
-				showToast(`¡Todas las velas están apagadas! Toca la Puerta #${partyState.age} o Encender velas.`);
+				showToast(`¡Todas las velas están apagadas! Toca la Puerta #${partyState.age} para abrirla.`);
 			}
 		};
 
 		private checkAllCandlesBlown() {
 			const allOut = partyState.candlesLit.every((lit) => !lit);
-			if (allOut && partyState.step === 1) {
-				partyState.step = 2;
+			if (allOut && partyState.step === 2) {
+				partyState.step = 3;
 				playHappyBirthdayMelody();
 
 				const doorPanel = this.querySelector('#cake-door-panel');
@@ -543,15 +568,26 @@
 
 				const bubbleText = this.querySelector('#bubble-text');
 				if (bubbleText) {
-					bubbleText.textContent = `¡Toca la brillante Puerta #${partyState.age} para abrirla! 🚪✨`;
+					bubbleText.textContent = `¡Tu deseo desbloqueó la Puerta Floral #${partyState.age}! ¡Tócala para abrirla! 🚪✨`;
 				}
 
 				emitPartyEvent('party:step-changed');
-				showToast(`¡Bien! ¡Pide un deseo! ¡Ahora toca la Puerta #${partyState.age} en el pastel!`);
+				showToast(`¡Deseo enviado a las estrellas! ¡La Puerta #${partyState.age} ahora brilla para ti!`);
 			}
 		}
 
 		private toggleCakeDoor = () => {
+			if (partyState.step === 1) {
+				playSparkleChime();
+				showToast('🪄 ¡Primero despierta el pastel tocando a la pequeña princesa hada!');
+				return;
+			}
+			if (partyState.step === 2) {
+				playSparkleChime();
+				showToast('🕯️ ¡Primero pide un deseo y sopla las 3 velas del castillo para desbloquear la puerta!');
+				return;
+			}
+
 			const doorPanel = this.querySelector('#cake-door-panel');
 			const bubbleText = this.querySelector('#bubble-text');
 			partyState.doorOpen = !partyState.doorOpen;
@@ -567,9 +603,9 @@
 					createParticles(svgRect.left + svgRect.width * 0.58, svgRect.top + svgRect.height * 0.68, 45);
 				}
 
-				partyState.step = 3;
+				partyState.step = 4;
 				if (bubbleText) {
-					bubbleText.textContent = '¡Toca dentro de la puerta abierta para ver tu tarjeta sorpresa! 💌';
+					bubbleText.textContent = '¡Toca dentro de la puerta abierta para ver tu Tarjeta de Invitación Real! 💌';
 				}
 				emitPartyEvent('party:step-changed');
 
@@ -578,14 +614,16 @@
 				}, 1150);
 			} else {
 				doorPanel?.classList.remove('door-open');
+				doorPanel?.classList.add('door-ready');
 				playSparkleChime();
 				if (bubbleText) {
-					bubbleText.textContent = `¡Toca la Puerta #${partyState.age} cuando quieras para asomarte dentro!`;
+					bubbleText.textContent = `¡Toca la Puerta #${partyState.age} cuando quieras para volver a ver tu sorpresa!`;
 				}
 			}
 		};
 
 		private resetCakeExperience = () => {
+			partyState.wandActivated = false;
 			partyState.candlesLit = [true, true, true];
 			partyState.doorOpen = false;
 			partyState.step = 1;
@@ -603,12 +641,12 @@
 
 			const bubbleText = this.querySelector('#bubble-text');
 			if (bubbleText) {
-				bubbleText.textContent = '¡Toca las velas brillantes del castillo o la varita estrellada del hada!';
+				bubbleText.textContent = '¡Toca a la princesita hada o su varita estrellada para despertar la magia! 🪄✨';
 			}
 
 			emitPartyEvent('party:step-changed');
 			playSparkleChime();
-			showToast('¡Velas encendidas de nuevo! ¡Lista para pedir otro deseo de cumpleaños!');
+			showToast('¡El cuento comienza de nuevo! ¡Toca a la princesita hada para despertar la magia!');
 		};
 
 		connectedCallback() {
@@ -624,7 +662,11 @@
 			});
 
 			this.querySelectorAll('[data-cake-action="open-invitation"]').forEach((el) => {
-				el.addEventListener('click', () => emitPartyEvent('party:open-invitation'));
+				el.addEventListener('click', () => {
+					if (partyState.step === 4) {
+						emitPartyEvent('party:open-invitation');
+					}
+				});
 			});
 
 			this.querySelectorAll('[data-cake-action="toggle-door"]').forEach((el) => {
