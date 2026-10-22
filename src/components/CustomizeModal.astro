@@ -1,0 +1,211 @@
+<customize-modal class="contents">
+	<div
+		id="customize-modal"
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby="customize-modal-title"
+		class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-palette-brown/60 backdrop-blur-md"
+	>
+		<div class="w-full max-w-lg bg-white rounded-3xl p-6 sm:p-7 shadow-2xl border-2 border-palette-pink relative">
+			<button
+				type="button"
+				data-action="close-customize"
+				aria-label="Close customize modal"
+				class="absolute top-4 right-4 w-9 h-9 rounded-full bg-palette-gray hover:bg-palette-pink/40 text-palette-brown font-bold flex items-center justify-center cursor-pointer"
+			>
+				✕
+			</button>
+
+			<h3 id="customize-modal-title" class="font-script text-3xl text-palette-brown mb-1">
+				Customize Party & Surprise
+			</h3>
+			<p class="text-xs text-palette-brown/75 mb-4">
+				Personalize the cake topper, door number, and invitation details below.
+			</p>
+
+			<form id="customize-form" class="space-y-3 text-left">
+				<div class="grid grid-cols-3 gap-3">
+					<div class="col-span-2">
+						<label for="input-name" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+							Daughter's Name
+						</label>
+						<input
+							id="input-name"
+							type="text"
+							value="Yashika"
+							required
+							class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+						/>
+					</div>
+					<div>
+						<label for="input-age" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+							Turning Age
+						</label>
+						<input
+							id="input-age"
+							type="number"
+							min="1"
+							max="99"
+							value="3"
+							required
+							class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+						/>
+					</div>
+				</div>
+
+				<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+					<div>
+						<label for="input-date" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+							Party Date
+						</label>
+						<input
+							id="input-date"
+							type="date"
+							value="2026-11-14"
+							required
+							class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+						/>
+					</div>
+					<div>
+						<label for="input-time" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+							Party Time
+						</label>
+						<input
+							id="input-time"
+							type="text"
+							value="3:00 PM – 6:30 PM"
+							required
+							class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+						/>
+					</div>
+				</div>
+
+				<div>
+					<label for="input-venue" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+						Venue / Location
+					</label>
+					<input
+						id="input-venue"
+						type="text"
+						value="The Enchanted Rose Garden, 124 Fairy Lane"
+						required
+						class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+					/>
+				</div>
+
+				<div>
+					<label for="input-dress" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+						Dress Code
+					</label>
+					<input
+						id="input-dress"
+						type="text"
+						value="Pastel Pink, Cream & Touch of Gold"
+						required
+						class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+					/>
+				</div>
+
+				<div>
+					<label for="input-surprise" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
+						Big Surprise Note for Your Daughter
+					</label>
+					<textarea
+						id="input-surprise"
+						rows="2"
+						required
+						class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
+						>"Put on your favorite princess dress, sweetheart! All your best friends, magical balloons, and this real-life fairy castle cake are waiting just for you!"</textarea
+					>
+				</div>
+
+				<div class="pt-2 flex justify-end gap-2">
+					<button
+						type="button"
+						data-action="close-customize"
+						class="px-4 py-2.5 rounded-xl bg-palette-gray text-palette-brown text-xs font-bold cursor-pointer"
+					>
+						Cancel
+					</button>
+					<button
+						type="submit"
+						class="px-6 py-2.5 rounded-xl gold-badge text-white text-xs font-bold shadow-md cursor-pointer"
+					>
+						Save & Update Cake ✨
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</customize-modal>
+
+<script>
+	import {
+		partyState,
+		updateDynamicTextInDOM,
+		emitPartyEvent,
+		showToast,
+	} from '../scripts/partyStore';
+	import { playSparkleChime } from '../scripts/audioManager';
+
+	class CustomizeModalElement extends HTMLElement {
+		private openModal = () => {
+			const modal = this.querySelector('#customize-modal');
+			modal?.classList.remove('hidden');
+			modal?.classList.add('flex');
+		};
+
+		private closeModal = () => {
+			const modal = this.querySelector('#customize-modal');
+			modal?.classList.add('hidden');
+			modal?.classList.remove('flex');
+		};
+
+		connectedCallback() {
+			this.querySelectorAll('[data-action="close-customize"]').forEach((btn) => {
+				btn.addEventListener('click', this.closeModal);
+			});
+
+			const modal = this.querySelector('#customize-modal');
+			modal?.addEventListener('click', (e) => {
+				if (e.target === modal) this.closeModal();
+			});
+
+			const form = this.querySelector('#customize-form') as HTMLFormElement | null;
+			form?.addEventListener('submit', (event) => {
+				event.preventDefault();
+				const nameInput = this.querySelector('#input-name') as HTMLInputElement | null;
+				const ageInput = this.querySelector('#input-age') as HTMLInputElement | null;
+				const dateInput = this.querySelector('#input-date') as HTMLInputElement | null;
+				const timeInput = this.querySelector('#input-time') as HTMLInputElement | null;
+				const venueInput = this.querySelector('#input-venue') as HTMLInputElement | null;
+				const dressInput = this.querySelector('#input-dress') as HTMLInputElement | null;
+				const surpriseInput = this.querySelector('#input-surprise') as HTMLTextAreaElement | null;
+
+				partyState.name = nameInput?.value.trim() || 'Yashika';
+				partyState.age = ageInput?.value.trim() || '3';
+				partyState.dateISO = dateInput?.value || '2026-11-14';
+				partyState.timeText = timeInput?.value.trim() || '3:00 PM – 6:30 PM';
+				partyState.venue = venueInput?.value.trim() || '';
+				partyState.dressCode = dressInput?.value.trim() || '';
+				partyState.surpriseMessage = surpriseInput?.value.trim() || '';
+
+				updateDynamicTextInDOM();
+				emitPartyEvent('party:updated');
+				this.closeModal();
+				playSparkleChime();
+				showToast(`Updated cake & invitation for Princess ${partyState.name}!`);
+			});
+
+			window.addEventListener('party:open-customize', this.openModal);
+		}
+
+		disconnectedCallback() {
+			window.removeEventListener('party:open-customize', this.openModal);
+		}
+	}
+
+	if (!customElements.get('customize-modal')) {
+		customElements.define('customize-modal', CustomizeModalElement);
+	}
+</script>

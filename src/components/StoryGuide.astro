@@ -1,0 +1,220 @@
+<story-guide
+	class="w-full lg:w-5/12 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
+>
+	<!-- Interactive Progress Pills -->
+	<div
+		class="inline-flex items-center gap-2 bg-white/90 px-4 py-1.5 rounded-full border border-palette-pink shadow-xs mb-3"
+	>
+		<span
+			id="step-badge"
+			class="w-2.5 h-2.5 rounded-full bg-palette-gold animate-ping"
+		></span>
+		<span
+			id="step-indicator-text"
+			class="text-xs font-bold uppercase tracking-wider text-palette-brown"
+		>
+			Paso 1 de 3 • Haz un deseo de cumpleaños
+		</span>
+	</div>
+
+	<h2
+		id="main-heading"
+		class="font-script text-4xl sm:text-5xl lg:text-6xl text-palette-brown leading-tight mb-2"
+	>
+		Feliz Cumpleaños, <span
+			class="dynamic-name text-palette-rose underline decoration-palette-gold/60"
+			>Sofía</span
+		>!
+	</h2>
+
+	<p
+		id="main-instruction"
+		class="text-sm sm:text-base text-palette-brown/90 bg-white/80 backdrop-blur-xs p-4 rounded-2xl border border-palette-pink/70 shadow-sm mb-4 max-w-md leading-relaxed"
+	>
+		Mira el mágico pastel de cumpleaños. <strong
+			>Presiona las 3 banderas doradas</strong
+		> (or el botón de abajo) para ver las candelas de cumpleaños y pedir un deseo.
+	</p>
+
+	<!-- Interactive Action Buttons for accessibility & ease of use for a 3-year-old -->
+	<div
+		class="flex flex-wrap items-center justify-center lg:justify-start gap-3 w-full max-w-md mb-5"
+	>
+		<button
+			type="button"
+			id="primary-action-btn"
+			data-action="primary"
+			class="flex-1 min-w-50 py-3.5 px-6 rounded-2xl gold-badge text-white font-bold text-base shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+		>
+			<span id="primary-action-icon" aria-hidden="true">🕯️</span>
+			<span id="primary-action-text">Soplar las velas</span>
+		</button>
+
+		<button
+			type="button"
+			data-action="open-invitation"
+			class="py-3.5 px-5 rounded-2xl bg-white hover:bg-palette-pink/30 text-palette-brown font-bold text-sm border-2 border-palette-pink shadow-sm transition-all flex items-center justify-center gap-2 active:scale-95 cursor-pointer"
+		>
+			<span aria-hidden="true">💌</span>
+			<span>Ver invitación</span>
+		</button>
+	</div>
+
+	<!-- Interactive Hotspots Legend (Great for kids & parents to explore) -->
+	<div
+		class="w-full max-w-md bg-palette-gray/90 rounded-2xl p-4 border border-palette-rose/40 shadow-inner"
+	>
+		<div class="flex items-center justify-between mb-2.5">
+			<span
+				class="text-xs font-bold uppercase tracking-wider text-palette-brown flex items-center gap-1.5"
+			>
+				<span aria-hidden="true">✨</span> Presiona el pastel para jugar:
+			</span>
+			<button
+				type="button"
+				data-action="reset-cake"
+				class="text-xs font-semibold text-palette-brown/70 hover:text-palette-brown underline cursor-pointer"
+			>
+				Relight Candles
+			</button>
+		</div>
+		<div class="grid grid-cols-3 gap-2 text-center">
+			<button
+				type="button"
+				data-action="wand"
+				class="p-2 rounded-xl bg-white hover:bg-palette-pink/30 border border-palette-pink/50 transition-all flex flex-col items-center gap-1 active:scale-95 cursor-pointer"
+			>
+				<span class="text-xl" aria-hidden="true">🧚‍♀️</span>
+				<span class="text-[11px] font-semibold text-palette-brown"
+					>Fairy Wand</span
+				>
+			</button>
+			<button
+				type="button"
+				data-action="blow-all-candles"
+				class="p-2 rounded-xl bg-white hover:bg-palette-pink/30 border border-palette-pink/50 transition-all flex flex-col items-center gap-1 active:scale-95 cursor-pointer"
+			>
+				<span class="text-xl" aria-hidden="true">🏰</span>
+				<span class="text-[11px] font-semibold text-palette-brown"
+					>Castle Candles</span
+				>
+			</button>
+			<button
+				type="button"
+				data-action="toggle-door"
+				class="p-2 rounded-xl bg-white hover:bg-palette-pink/30 border border-palette-pink/50 transition-all flex flex-col items-center gap-1 active:scale-95 cursor-pointer"
+			>
+				<span class="text-xl" aria-hidden="true">🚪</span>
+				<span class="text-[11px] font-semibold text-palette-brown"
+					>Door #<span class="dynamic-age">3</span></span
+				>
+			</button>
+		</div>
+	</div>
+</story-guide>
+
+<script>
+	import { partyState, emitPartyEvent } from "../scripts/partyStore";
+
+	class StoryGuideElement extends HTMLElement {
+		private updateStepUI = () => {
+			const stepIndicator = this.querySelector("#step-indicator-text");
+			const instruction = this.querySelector("#main-instruction");
+			const primaryIcon = this.querySelector("#primary-action-icon");
+			const primaryText = this.querySelector("#primary-action-text");
+
+			if (partyState.step === 1) {
+				if (stepIndicator)
+					stepIndicator.textContent =
+						"Step 1 of 3 • Make a Birthday Wish";
+				if (instruction) {
+					instruction.innerHTML =
+						"Look at your magical castle cake! <strong>Tap the 3 golden castle flags</strong> (or the button below) to blow out the birthday candles and make a wish!";
+				}
+				if (primaryIcon) primaryIcon.textContent = "🕯️";
+				if (primaryText)
+					primaryText.textContent = "Blow Out the Candles!";
+			} else if (partyState.step === 2) {
+				if (stepIndicator)
+					stepIndicator.textContent =
+						"Step 2 of 3 • Unlock the Secret Door!";
+				if (instruction) {
+					instruction.innerHTML = `Hooray! Your wish is floating to the stars! Now <strong>tap the floral pink Door #${partyState.age}</strong> on the cake to unlock your big birthday surprise!`;
+				}
+				if (primaryIcon) primaryIcon.textContent = "🚪";
+				if (primaryText)
+					primaryText.textContent = `Open Magical Door #${partyState.age}!`;
+			} else if (partyState.step === 3) {
+				if (stepIndicator)
+					stepIndicator.textContent =
+						"Step 3 of 3 • Surprise Unlocked!";
+				if (instruction) {
+					instruction.innerHTML = `Surprise, <strong>${partyState.name}</strong>! The secret fairy door opened! Tap inside the open doorway or click below to read your royal invitation!`;
+				}
+				if (primaryIcon) primaryIcon.textContent = "👑";
+				if (primaryText)
+					primaryText.textContent = "Reveal Royal Invitation!";
+			}
+		};
+
+		connectedCallback() {
+			this.querySelector('[data-action="primary"]')?.addEventListener(
+				"click",
+				() => {
+					if (partyState.step === 1) {
+						emitPartyEvent("party:blow-all-candles");
+					} else if (partyState.step === 2) {
+						emitPartyEvent("party:toggle-door");
+					} else {
+						emitPartyEvent("party:open-invitation");
+					}
+				},
+			);
+
+			this.querySelector(
+				'[data-action="open-invitation"]',
+			)?.addEventListener("click", () => {
+				emitPartyEvent("party:open-invitation");
+			});
+
+			this.querySelector('[data-action="reset-cake"]')?.addEventListener(
+				"click",
+				() => {
+					emitPartyEvent("party:reset-cake");
+				},
+			);
+
+			this.querySelector('[data-action="wand"]')?.addEventListener(
+				"click",
+				() => {
+					emitPartyEvent("party:wand-burst");
+				},
+			);
+
+			this.querySelector(
+				'[data-action="blow-all-candles"]',
+			)?.addEventListener("click", () => {
+				emitPartyEvent("party:blow-all-candles");
+			});
+
+			this.querySelector('[data-action="toggle-door"]')?.addEventListener(
+				"click",
+				() => {
+					emitPartyEvent("party:toggle-door");
+				},
+			);
+
+			window.addEventListener("party:step-changed", this.updateStepUI);
+			window.addEventListener("party:updated", this.updateStepUI);
+		}
+
+		disconnectedCallback() {
+			window.removeEventListener("party:step-changed", this.updateStepUI);
+			window.removeEventListener("party:updated", this.updateStepUI);
+		}
+	}
+
+	if (!customElements.get("story-guide")) {
+		customElements.define("story-guide", StoryGuideElement);
+	}
+</script>
