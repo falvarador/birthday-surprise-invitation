@@ -33,7 +33,7 @@
 	>
 		Mira el mágico pastel de cumpleaños. <strong
 			>Presiona las 3 banderas doradas</strong
-		> (or el botón de abajo) para ver las candelas de cumpleaños y pedir un deseo.
+		> (o el botón de abajo) para ver las candelas de cumpleaños y pedir un deseo.
 	</p>
 
 	<!-- Interactive Action Buttons for accessibility & ease of use for a 3-year-old -->
@@ -75,7 +75,7 @@
 				data-action="reset-cake"
 				class="text-xs font-semibold text-palette-brown/70 hover:text-palette-brown underline cursor-pointer"
 			>
-				Relight Candles
+				Encender velas
 			</button>
 		</div>
 		<div class="grid grid-cols-3 gap-2 text-center">
@@ -86,7 +86,7 @@
 			>
 				<span class="text-xl" aria-hidden="true">🧚‍♀️</span>
 				<span class="text-[11px] font-semibold text-palette-brown"
-					>Fairy Wand</span
+					>Varita de hada</span
 				>
 			</button>
 			<button
@@ -96,7 +96,7 @@
 			>
 				<span class="text-xl" aria-hidden="true">🏰</span>
 				<span class="text-[11px] font-semibold text-palette-brown"
-					>Castle Candles</span
+					>Velas del castillo</span
 				>
 			</button>
 			<button
@@ -106,7 +106,7 @@
 			>
 				<span class="text-xl" aria-hidden="true">🚪</span>
 				<span class="text-[11px] font-semibold text-palette-brown"
-					>Door #<span class="dynamic-age">3</span></span
+					>Puerta #<span class="dynamic-age">4</span></span
 				>
 			</button>
 		</div>
@@ -126,34 +126,34 @@
 			if (partyState.step === 1) {
 				if (stepIndicator)
 					stepIndicator.textContent =
-						"Step 1 of 3 • Make a Birthday Wish";
+						"Paso 1 de 3 • Haz un deseo de cumpleaños";
 				if (instruction) {
 					instruction.innerHTML =
-						"Look at your magical castle cake! <strong>Tap the 3 golden castle flags</strong> (or the button below) to blow out the birthday candles and make a wish!";
+						"Mira el mágico pastel de cumpleaños. <strong>Presiona las 3 banderas doradas</strong> (o el botón de abajo) para ver las candelas de cumpleaños y pedir un deseo.";
 				}
 				if (primaryIcon) primaryIcon.textContent = "🕯️";
 				if (primaryText)
-					primaryText.textContent = "Blow Out the Candles!";
+					primaryText.textContent = "Soplar las velas";
 			} else if (partyState.step === 2) {
 				if (stepIndicator)
 					stepIndicator.textContent =
-						"Step 2 of 3 • Unlock the Secret Door!";
+						"Paso 2 de 3 • ¡Abre la Puerta Secreta!";
 				if (instruction) {
-					instruction.innerHTML = `Hooray! Your wish is floating to the stars! Now <strong>tap the floral pink Door #${partyState.age}</strong> on the cake to unlock your big birthday surprise!`;
+					instruction.innerHTML = `¡Hurra! ¡Tu deseo está flotando hacia las estrellas! Ahora <strong>toca la Puerta #${partyState.age} rosa con flores</strong> en el pastel para desbloquear tu gran sorpresa de cumpleaños.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "🚪";
 				if (primaryText)
-					primaryText.textContent = `Open Magical Door #${partyState.age}!`;
+					primaryText.textContent = `¡Abrir Puerta Mágica #${partyState.age}!`;
 			} else if (partyState.step === 3) {
 				if (stepIndicator)
 					stepIndicator.textContent =
-						"Step 3 of 3 • Surprise Unlocked!";
+						"Paso 3 de 3 • ¡Sorpresa Desbloqueada!";
 				if (instruction) {
-					instruction.innerHTML = `Surprise, <strong>${partyState.name}</strong>! The secret fairy door opened! Tap inside the open doorway or click below to read your royal invitation!`;
+					instruction.innerHTML = `¡Sorpresa, <strong>${partyState.name}</strong>! ¡La puerta secreta de hadas se abrió! Toca dentro de la puerta abierta o haz clic abajo para leer tu invitación real.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "👑";
 				if (primaryText)
-					primaryText.textContent = "Reveal Royal Invitation!";
+					primaryText.textContent = "¡Revelar Invitación Real!";
 			}
 		};
 

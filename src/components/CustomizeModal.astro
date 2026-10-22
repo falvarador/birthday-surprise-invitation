@@ -10,43 +10,43 @@
 			<button
 				type="button"
 				data-action="close-customize"
-				aria-label="Close customize modal"
+				aria-label="Cerrar modal de personalización"
 				class="absolute top-4 right-4 w-9 h-9 rounded-full bg-palette-gray hover:bg-palette-pink/40 text-palette-brown font-bold flex items-center justify-center cursor-pointer"
 			>
 				✕
 			</button>
 
 			<h3 id="customize-modal-title" class="font-script text-3xl text-palette-brown mb-1">
-				Customize Party & Surprise
+				Personalizar Fiesta y Sorpresa
 			</h3>
 			<p class="text-xs text-palette-brown/75 mb-4">
-				Personalize the cake topper, door number, and invitation details below.
+				Personaliza el adorno del pastel, el número de la puerta y los detalles de la invitación a continuación.
 			</p>
 
 			<form id="customize-form" class="space-y-3 text-left">
 				<div class="grid grid-cols-3 gap-3">
 					<div class="col-span-2">
 						<label for="input-name" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-							Daughter's Name
+							Nombre de la Niña
 						</label>
 						<input
 							id="input-name"
 							type="text"
-							value="Yashika"
+							value="Sofía"
 							required
 							class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
 						/>
 					</div>
 					<div>
 						<label for="input-age" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-							Turning Age
+							Edad a Cumplir
 						</label>
 						<input
 							id="input-age"
 							type="number"
 							min="1"
 							max="99"
-							value="3"
+							value="4"
 							required
 							class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
 						/>
@@ -56,7 +56,7 @@
 				<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
 					<div>
 						<label for="input-date" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-							Party Date
+							Fecha de la Fiesta
 						</label>
 						<input
 							id="input-date"
@@ -68,7 +68,7 @@
 					</div>
 					<div>
 						<label for="input-time" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-							Party Time
+							Hora de la Fiesta
 						</label>
 						<input
 							id="input-time"
@@ -82,12 +82,12 @@
 
 				<div>
 					<label for="input-venue" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-						Venue / Location
+						Lugar / Ubicación
 					</label>
 					<input
 						id="input-venue"
 						type="text"
-						value="The Enchanted Rose Garden, 124 Fairy Lane"
+						value="El Jardín de Rosas Encantado, Calle de las Hadas 124"
 						required
 						class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
 					/>
@@ -95,12 +95,12 @@
 
 				<div>
 					<label for="input-dress" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-						Dress Code
+						Código de Vestimenta
 					</label>
 					<input
 						id="input-dress"
 						type="text"
-						value="Pastel Pink, Cream & Touch of Gold"
+						value="Rosa Pastel, Crema y un Toque de Dorado"
 						required
 						class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
 					/>
@@ -108,14 +108,14 @@
 
 				<div>
 					<label for="input-surprise" class="block text-xs font-bold uppercase tracking-wider text-palette-brown mb-1">
-						Big Surprise Note for Your Daughter
+						Gran Nota Sorpresa para tu Hija
 					</label>
 					<textarea
 						id="input-surprise"
 						rows="2"
 						required
 						class="w-full px-3.5 py-2 rounded-xl bg-palette-mint border border-palette-pink text-sm text-palette-brown font-semibold focus:outline-none focus:border-palette-gold"
-						>"Put on your favorite princess dress, sweetheart! All your best friends, magical balloons, and this real-life fairy castle cake are waiting just for you!"</textarea
+						>"¡Ponte tu vestido de princesa favorito, corazón! ¡Todos tus mejores amigos, globos mágicos y este pastel de castillo de hadas real te están esperando solo a ti!"</textarea
 					>
 				</div>
 
@@ -125,13 +125,13 @@
 						data-action="close-customize"
 						class="px-4 py-2.5 rounded-xl bg-palette-gray text-palette-brown text-xs font-bold cursor-pointer"
 					>
-						Cancel
+						Cancelar
 					</button>
 					<button
 						type="submit"
 						class="px-6 py-2.5 rounded-xl gold-badge text-white text-xs font-bold shadow-md cursor-pointer"
 					>
-						Save & Update Cake ✨
+						Guardar y Actualizar Pastel ✨
 					</button>
 				</div>
 			</form>
@@ -182,8 +182,8 @@
 				const dressInput = this.querySelector('#input-dress') as HTMLInputElement | null;
 				const surpriseInput = this.querySelector('#input-surprise') as HTMLTextAreaElement | null;
 
-				partyState.name = nameInput?.value.trim() || 'Yashika';
-				partyState.age = ageInput?.value.trim() || '3';
+				partyState.name = nameInput?.value.trim() || 'Sofía';
+				partyState.age = ageInput?.value.trim() || '4';
 				partyState.dateISO = dateInput?.value || '2026-11-14';
 				partyState.timeText = timeInput?.value.trim() || '3:00 PM – 6:30 PM';
 				partyState.venue = venueInput?.value.trim() || '';
@@ -194,7 +194,7 @@
 				emitPartyEvent('party:updated');
 				this.closeModal();
 				playSparkleChime();
-				showToast(`Updated cake & invitation for Princess ${partyState.name}!`);
+				showToast(`¡Pastel e invitación actualizados para la Princesa ${partyState.name}!`);
 			});
 
 			window.addEventListener('party:open-customize', this.openModal);

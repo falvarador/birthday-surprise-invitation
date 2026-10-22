@@ -5,7 +5,7 @@
 		class="mb-1 px-4 py-1.5 rounded-full bg-white border-2 border-palette-gold shadow-md text-xs sm:text-sm font-bold text-palette-brown flex items-center gap-2 animate-bounce"
 	>
 		<span aria-hidden="true">✨</span>
-		<span id="bubble-text">Tap the glowing castle candles or the fairy's star wand!</span>
+		<span id="bubble-text">¡Toca las velas brillantes del castillo o la varita estrellada del hada!</span>
 	</div>
 
 	<!-- Interactive SVG Cake Container -->
@@ -15,7 +15,7 @@
 			viewBox="0 0 520 610"
 			class="w-full h-full drop-shadow-xl overflow-visible"
 			role="img"
-			aria-label="Interactive Magical Birthday Castle Cake"
+			aria-label="Pastel de Castillo de Cumpleaños Mágico Interactivo"
 		>
 			<defs>
 				<!-- Soft Shadow Filters -->
@@ -204,8 +204,8 @@
 				<!-- Inner Cream Circle -->
 				<circle cx="338" cy="176" r="52" fill="#F2F8F6" stroke="#ffffff" stroke-width="2"></circle>
 				<!-- Gold Script Text on Plaque -->
-				<text x="338" y="156" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="19" fill="#b39252">Happy</text>
-				<text x="338" y="177" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="19" fill="#b39252">Birthday</text>
+				<text x="338" y="156" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="19" fill="#b39252">Feliz</text>
+				<text x="338" y="177" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="16.5" fill="#b39252">Cumpleaños</text>
 				<text
 					id="svg-plaque-name"
 					class="dynamic-name"
@@ -216,7 +216,7 @@
 					font-style="italic"
 					font-weight="700"
 					font-size="20"
-					fill="#966859">Yashika</text>
+					fill="#966859">Sofía</text>
 				<!-- Small Pink Heart on Plaque -->
 				<path
 					d="M338 216 C338 216 332 211 332 208 C332 206 333.5 205 335 205 C336.5 205 338 206.5 338 206.5 C338 206.5 339.5 205 341 205 C342.5 205 344 206 344 208 C344 211 338 216 338 216 Z"
@@ -298,11 +298,11 @@
 				<!-- Secret Invitation Preview Inside the Open Door -->
 				<g id="door-secret-interior" class="cursor-pointer" data-cake-action="open-invitation">
 					<rect x="255" y="362" width="98" height="118" rx="10" fill="#ffffff" stroke="#CDB37B" stroke-width="2"></rect>
-					<text x="304" y="388" text-anchor="middle" font-family="'Dancing Script', cursive" font-size="16" font-weight="700" fill="#966859">You're Invited!</text>
+					<text x="304" y="388" text-anchor="middle" font-family="'Dancing Script', cursive" font-size="14" font-weight="700" fill="#966859">¡Estás Invitado!</text>
 					<circle cx="304" cy="415" r="16" fill="#E6C0CF"></circle>
 					<text x="304" y="421" text-anchor="middle" font-size="16">👑</text>
 					<rect x="267" y="442" width="74" height="22" rx="11" fill="url(#goldGrad)"></rect>
-					<text x="304" y="457" text-anchor="middle" font-family="'Quicksand', sans-serif" font-size="10" font-weight="700" fill="#ffffff">OPEN CARD ✨</text>
+					<text x="304" y="457" text-anchor="middle" font-family="'Quicksand', sans-serif" font-size="9.5" font-weight="700" fill="#ffffff">VER CARTA ✨</text>
 				</g>
 
 				<!-- Swinging Pink Wood-Textured Door Panel -->
@@ -315,7 +315,7 @@
 					<line x1="328" y1="306" x2="328" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
 					<line x1="350" y1="322" x2="350" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
 
-					<!-- Large Pink & Gold Outlined Number "3" on Door -->
+					<!-- Large Pink & Gold Outlined Number "4" on Door -->
 					<text
 						id="svg-door-age"
 						class="dynamic-age"
@@ -328,7 +328,7 @@
 						fill="#E6C0CF"
 						stroke="url(#goldGrad)"
 						stroke-width="4"
-						filter="url(#plaque-shadow)">3</text>
+						filter="url(#plaque-shadow)">4</text>
 
 					<!-- Puffy Gold Heart Doorknob on Right of Number 3 -->
 					<path
@@ -496,7 +496,7 @@
 				const wandY = svgRect.top + svgRect.height * 0.64;
 				createParticles(wandX, wandY, 35);
 			}
-			showToast(`${partyState.name}'s fairy wand cast a magical birthday wish!`);
+			showToast(`¡La varita de hada de ${partyState.name} lanzó un deseo mágico de cumpleaños!`);
 		};
 
 		private blowCandle = (index: number) => {
@@ -528,7 +528,7 @@
 				}
 			});
 			if (!anyLit) {
-				showToast(`All candles are out! Tap Door #${partyState.age} or Relight Candles.`);
+				showToast(`¡Todas las velas están apagadas! Toca la Puerta #${partyState.age} o Encender velas.`);
 			}
 		};
 
@@ -543,11 +543,11 @@
 
 				const bubbleText = this.querySelector('#bubble-text');
 				if (bubbleText) {
-					bubbleText.textContent = `Tap the glowing Door #${partyState.age} to open it! 🚪✨`;
+					bubbleText.textContent = `¡Toca la brillante Puerta #${partyState.age} para abrirla! 🚪✨`;
 				}
 
 				emitPartyEvent('party:step-changed');
-				showToast(`Yay! Make a wish! Now tap Door #${partyState.age} on the cake!`);
+				showToast(`¡Bien! ¡Pide un deseo! ¡Ahora toca la Puerta #${partyState.age} en el pastel!`);
 			}
 		}
 
@@ -569,7 +569,7 @@
 
 				partyState.step = 3;
 				if (bubbleText) {
-					bubbleText.textContent = 'Tap inside the open door for your surprise card! 💌';
+					bubbleText.textContent = '¡Toca dentro de la puerta abierta para ver tu tarjeta sorpresa! 💌';
 				}
 				emitPartyEvent('party:step-changed');
 
@@ -580,7 +580,7 @@
 				doorPanel?.classList.remove('door-open');
 				playSparkleChime();
 				if (bubbleText) {
-					bubbleText.textContent = `Tap Door #${partyState.age} anytime to peek inside!`;
+					bubbleText.textContent = `¡Toca la Puerta #${partyState.age} cuando quieras para asomarte dentro!`;
 				}
 			}
 		};
@@ -603,12 +603,12 @@
 
 			const bubbleText = this.querySelector('#bubble-text');
 			if (bubbleText) {
-				bubbleText.textContent = "Tap the glowing castle candles or the fairy's star wand!";
+				bubbleText.textContent = '¡Toca las velas brillantes del castillo o la varita estrellada del hada!';
 			}
 
 			emitPartyEvent('party:step-changed');
 			playSparkleChime();
-			showToast('Candles relit! Ready to make another birthday wish!');
+			showToast('¡Velas encendidas de nuevo! ¡Lista para pedir otro deseo de cumpleaños!');
 		};
 
 		connectedCallback() {

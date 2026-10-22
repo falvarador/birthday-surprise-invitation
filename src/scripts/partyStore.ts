@@ -20,28 +20,28 @@ export interface PartyState {
 }
 
 export const partyState: PartyState = {
-  name: 'Yashika',
-  age: '3',
+  name: 'Sofía',
+  age: '4',
   dateISO: '2026-11-14',
   timeText: '3:00 PM – 6:30 PM',
-  venue: 'The Enchanted Rose Garden, 124 Fairy Lane',
-  dressCode: 'Pastel Pink, Cream & Touch of Gold',
+  venue: 'El Jardín de Rosas Encantado, Calle de las Hadas 124',
+  dressCode: 'Rosa Pastel, Crema y un Toque de Dorado',
   surpriseMessage:
-    '"Put on your favorite princess dress, sweetheart! All your best friends, magical balloons, and this real-life fairy castle cake are waiting just for you!"',
+    '"¡Ponte tu vestido de princesa favorito, piquito! ¡Tus mejores amigos, familiares, seres queridos y este pastel de castillo de hadas te están esperando solo a ti!"',
   candlesLit: [true, true, true],
   doorOpen: false,
   step: 1,
   audioEnabled: true,
   wishes: [
     {
-      name: 'Grandma & Grandpa',
-      status: '✨ Joyfully Attending!',
-      text: 'Happy 3rd Birthday to our sweetest little fairy princess!',
+      name: 'Abuelita y Abuelito',
+      status: '✨ ¡Asistiremos con alegría!',
+      text: '¡Feliz 4.º cumpleaños a nuestra más dulce princesita de las hadas!',
     },
     {
-      name: 'Auntie Elena & Maya',
-      status: '✨ Joyfully Attending!',
-      text: 'We cannot wait to celebrate with you in your royal castle!',
+      name: 'Tía Elena y Maya',
+      status: '✨ ¡Asistiremos con alegría!',
+      text: '¡No podemos esperar para celebrar contigo en tu castillo real!',
     },
   ],
 };
@@ -50,7 +50,7 @@ export function formatReadableDate(isoDateString: string): string {
   try {
     const [year, month, day] = isoDateString.split('-').map(Number);
     const d = new Date(year, month - 1, day);
-    return d.toLocaleDateString('en-US', {
+    return d.toLocaleDateString('es-ES', {
       weekday: 'long',
       month: 'short',
       day: 'numeric',
