@@ -58,15 +58,6 @@
 				<span id="sound-icon" aria-hidden="true">🎵</span>
 				<span id="sound-label" class="hidden sm:inline">Música</span>
 			</button>
-
-			<!-- <button
-				type="button"
-				data-action="customize"
-				class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-palette-brown hover:bg-palette-darkBrown text-palette-mint shadow-sm transition-all text-xs sm:text-sm font-semibold active:scale-95 cursor-pointer"
-			>
-				<span aria-hidden="true">✨</span>
-				<span>Personalizar</span>
-			</button> -->
 		</div>
 	</header>
 </birthday-header>
@@ -83,9 +74,6 @@
 		connectedCallback() {
 			const wandBtn = this.querySelector('[data-action="wand"]');
 			const soundBtn = this.querySelector('[data-action="sound"]');
-			const customizeBtn = this.querySelector(
-				'[data-action="customize"]',
-			);
 
 			wandBtn?.addEventListener("click", () => {
 				emitPartyEvent("party:wand-burst");
@@ -105,10 +93,6 @@
 					if (label) label.textContent = "Sin música";
 					showToast("Música desactivada");
 				}
-			});
-
-			customizeBtn?.addEventListener("click", () => {
-				emitPartyEvent("party:open-customize");
 			});
 		}
 	}
