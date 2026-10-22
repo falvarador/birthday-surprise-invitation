@@ -1,0 +1,133 @@
+<welcome-overlay class="contents">
+	<div
+		id="welcome-overlay"
+		class="fixed inset-0 z-40 flex items-center justify-center p-4 bg-palette-mint/95 backdrop-blur-md transition-opacity duration-700"
+	>
+		<div
+			class="max-w-md w-full bg-white rounded-3xl p-6 sm:p-8 shadow-2xl border-2 border-palette-pink text-center relative overflow-hidden"
+		>
+			<!-- Decorative Corner Ribbons -->
+			<div
+				class="absolute -top-10 -left-10 w-28 h-28 bg-palette-pink/40 rounded-full blur-xl"
+				aria-hidden="true"
+			>
+			</div>
+			<div
+				class="absolute -bottom-10 -right-10 w-28 h-28 bg-palette-gold/30 rounded-full blur-xl"
+				aria-hidden="true"
+			>
+			</div>
+
+			<!-- Envelope / Crown SVG Icon -->
+			<div
+				class="w-24 h-24 mx-auto mb-4 rounded-full bg-palette-mint border-2 border-palette-gold flex items-center justify-center shadow-inner animate-float"
+			>
+				<svg
+					class="w-14 h-14"
+					viewBox="0 0 64 64"
+					fill="none"
+					aria-hidden="true"
+				>
+					<path
+						d="M10 46L14 22L26 34L32 16L38 34L50 22L54 46H10Z"
+						fill="#E6C0CF"
+						stroke="#CDB37B"
+						stroke-width="2.5"
+						stroke-linejoin="round"></path>
+					<rect
+						x="10"
+						y="46"
+						width="44"
+						height="6"
+						rx="3"
+						fill="#CDB37B"></rect>
+					<circle cx="14" cy="19" r="3" fill="#CDB37B"></circle>
+					<circle cx="32" cy="13" r="3.5" fill="#CDB37B"></circle>
+					<circle cx="50" cy="19" r="3" fill="#CDB37B"></circle>
+					<path
+						d="M32 36C32 36 27 32 27 29.5C27 28 28.2 27 29.5 27C30.8 27 32 28 32 28C32 28 33.2 27 34.5 27C35.8 27 37 28 37 29.5C37 32 32 36 32 36Z"
+						fill="#966859"></path>
+				</svg>
+			</div>
+
+			<p
+				class="text-xs uppercase tracking-widest font-bold text-palette-gold mb-1"
+			>
+				Una sorpresa mágica para
+			</p>
+			<h1
+				class="font-script text-4xl sm:text-5xl text-palette-brown mb-3"
+			>
+				La princesa <span class="dynamic-name">Sofía</span>
+			</h1>
+			<p
+				class="text-sm sm:text-base text-palette-brown/80 mb-6 leading-relaxed"
+			>
+				Hemos preparado una fiesta de cuento de hadas especialmente para
+				Sofía. Así que toca el sello real a continuación para entrar en
+				el reino de cumpleaños mágico.
+			</p>
+
+			<!-- Mode Selector Tabs (Surprise vs Direct Invitation) -->
+			<div class="flex flex-col gap-3">
+				<button
+					type="button"
+					data-action="start-surprise"
+					class="w-full py-3.5 px-6 rounded-2xl gold-badge text-white font-bold text-base sm:text-lg shadow-lg hover:brightness-105 active:scale-98 transition-all flex items-center justify-center gap-2 animate-glow cursor-pointer"
+				>
+					<span aria-hidden="true">👑</span>
+					<span>¡Descubre la gran sorpresa!</span>
+				</button>
+				<button
+					type="button"
+					data-action="skip-to-invitation"
+					class="w-full py-2.5 px-4 rounded-xl bg-palette-gray hover:bg-palette-pink/40 text-palette-brown font-semibold text-xs sm:text-sm transition-all cursor-pointer"
+				>
+					Saltar directamente a la tarjeta de invitación →
+				</button>
+			</div>
+		</div>
+	</div>
+</welcome-overlay>
+
+<script>
+	import { createParticles, emitPartyEvent } from "../scripts/partyStore";
+	import { playHappyBirthdayMelody } from "../scripts/audioManager";
+
+	class WelcomeOverlayElement extends HTMLElement {
+		connectedCallback() {
+			const overlay = this.querySelector("#welcome-overlay");
+			const startBtn = this.querySelector(
+				'[data-action="start-surprise"]',
+			);
+			const skipBtn = this.querySelector(
+				'[data-action="skip-to-invitation"]',
+			);
+
+			const hideOverlay = () => {
+				if (!overlay) return;
+				overlay.classList.add("opacity-0", "pointer-events-none");
+				setTimeout(() => overlay.classList.add("hidden"), 700);
+			};
+
+			startBtn?.addEventListener("click", () => {
+				hideOverlay();
+				playHappyBirthdayMelody();
+				createParticles(
+					window.innerWidth / 2,
+					window.innerHeight / 2,
+					45,
+				);
+			});
+
+			skipBtn?.addEventListener("click", () => {
+				hideOverlay();
+				emitPartyEvent("party:open-invitation");
+			});
+		}
+	}
+
+	if (!customElements.get("welcome-overlay")) {
+		customElements.define("welcome-overlay", WelcomeOverlayElement);
+	}
+</script>

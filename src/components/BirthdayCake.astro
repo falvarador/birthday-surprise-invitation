@@ -1,0 +1,651 @@
+<birthday-cake class="w-full lg:w-7/12 flex flex-col items-center justify-center order-1 lg:order-2 relative">
+	<!-- Floating speech bubble hint on the cake -->
+	<div
+		id="cake-speech-bubble"
+		class="mb-1 px-4 py-1.5 rounded-full bg-white border-2 border-palette-gold shadow-md text-xs sm:text-sm font-bold text-palette-brown flex items-center gap-2 animate-bounce"
+	>
+		<span aria-hidden="true">✨</span>
+		<span id="bubble-text">¡Toca las velas brillantes del castillo o la varita estrellada del hada!</span>
+	</div>
+
+	<!-- Interactive SVG Cake Container -->
+	<div class="w-full max-w-[460px] sm:max-w-[520px] aspect-[520/610] relative flex items-center justify-center">
+		<svg
+			id="birthday-cake-svg"
+			viewBox="0 0 520 610"
+			class="w-full h-full drop-shadow-xl overflow-visible"
+			role="img"
+			aria-label="Pastel de Castillo de Cumpleaños Mágico Interactivo"
+		>
+			<defs>
+				<!-- Soft Shadow Filters -->
+				<filter id="soft-shadow" x="-15%" y="-15%" width="130%" height="130%">
+					<feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#966859" flood-opacity="0.18"></feDropShadow>
+				</filter>
+				<filter id="plaque-shadow" x="-10%" y="-10%" width="120%" height="120%">
+					<feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#966859" flood-opacity="0.15"></feDropShadow>
+				</filter>
+				<filter id="gold-glow" x="-30%" y="-30%" width="160%" height="160%">
+					<feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#CDB37B" flood-opacity="0.85"></feDropShadow>
+				</filter>
+
+				<!-- Metallic Gold Gradient (#CDB37B) -->
+				<linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+					<stop offset="0%" stop-color="#e8d6a8"></stop>
+					<stop offset="45%" stop-color="#CDB37B"></stop>
+					<stop offset="100%" stop-color="#9e8247"></stop>
+				</linearGradient>
+
+				<!-- Pearl Gold Sphere Gradient -->
+				<radialGradient id="goldSphere" cx="35%" cy="30%" r="65%">
+					<stop offset="0%" stop-color="#fff6db"></stop>
+					<stop offset="45%" stop-color="#CDB37B"></stop>
+					<stop offset="100%" stop-color="#8c7038"></stop>
+				</radialGradient>
+
+				<!-- Pearl White/Mint Sphere Gradient -->
+				<radialGradient id="whiteSphere" cx="35%" cy="30%" r="65%">
+					<stop offset="0%" stop-color="#ffffff"></stop>
+					<stop offset="65%" stop-color="#F2F8F6"></stop>
+					<stop offset="100%" stop-color="#d5dedb"></stop>
+				</radialGradient>
+
+				<!-- Pastel Pink Sphere Gradient (#E6C0CF) -->
+				<radialGradient id="pinkSphere" cx="35%" cy="30%" r="65%">
+					<stop offset="0%" stop-color="#faeaf0"></stop>
+					<stop offset="60%" stop-color="#E6C0CF"></stop>
+					<stop offset="100%" stop-color="#c495a8"></stop>
+				</radialGradient>
+
+				<!-- Dusty Rose Gradient (#DCB4B7) -->
+				<linearGradient id="roseGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+					<stop offset="0%" stop-color="#E6C0CF"></stop>
+					<stop offset="100%" stop-color="#DCB4B7"></stop>
+				</linearGradient>
+
+				<!-- Cake Frosting Cylinder Body Gradient (#F2F8F6 & #F2F2F2) -->
+				<linearGradient id="cakeFrosting" x1="0%" y1="0%" x2="100%" y2="0%">
+					<stop offset="0%" stop-color="#e8ecea"></stop>
+					<stop offset="18%" stop-color="#F2F8F6"></stop>
+					<stop offset="55%" stop-color="#ffffff"></stop>
+					<stop offset="85%" stop-color="#F2F2F2"></stop>
+					<stop offset="100%" stop-color="#dfe3e1"></stop>
+				</linearGradient>
+
+				<!-- Castle Turret Roof Gradient -->
+				<linearGradient id="roofPink" x1="0%" y1="0%" x2="100%" y2="0%">
+					<stop offset="0%" stop-color="#f3dce5"></stop>
+					<stop offset="50%" stop-color="#E6C0CF"></stop>
+					<stop offset="100%" stop-color="#DCB4B7"></stop>
+				</linearGradient>
+
+				<!-- Reusable Tiny Flower Definition -->
+				<g id="pink-flower">
+					<circle cx="0" cy="-5" r="3.5" fill="#E6C0CF"></circle>
+					<circle cx="4.7" cy="-1.5" r="3.5" fill="#E6C0CF"></circle>
+					<circle cx="2.9" cy="4" r="3.5" fill="#E6C0CF"></circle>
+					<circle cx="-2.9" cy="4" r="3.5" fill="#E6C0CF"></circle>
+					<circle cx="-4.7" cy="-1.5" r="3.5" fill="#E6C0CF"></circle>
+					<circle cx="0" cy="0" r="2.2" fill="#CDB37B"></circle>
+				</g>
+				<g id="white-flower">
+					<circle cx="0" cy="-4.5" r="3.2" fill="#F2F8F6"></circle>
+					<circle cx="4.3" cy="-1.4" r="3.2" fill="#F2F8F6"></circle>
+					<circle cx="2.6" cy="3.6" r="3.2" fill="#F2F8F6"></circle>
+					<circle cx="-2.6" cy="3.6" r="3.2" fill="#F2F8F6"></circle>
+					<circle cx="-4.3" cy="-1.4" r="3.2" fill="#F2F8F6"></circle>
+					<circle cx="0" cy="0" r="2" fill="#DCB4B7"></circle>
+				</g>
+				<g id="gold-butterfly">
+					<path
+						d="M0 0 C-8 -10, -14 -4, -8 2 C-12 6, -6 11, 0 4 C6 11, 12 6, 8 2 C14 -4, 8 -10, 0 0 Z"
+						fill="url(#goldGrad)"
+						stroke="#966859"
+						stroke-width="0.6"></path>
+				</g>
+			</defs>
+
+			<!-- ==================== 1. CAKE BOARD BASE ==================== -->
+			<g id="cake-board" filter="url(#soft-shadow)">
+				<ellipse cx="260" cy="542" rx="235" ry="52" fill="#e2e6e4"></ellipse>
+				<ellipse cx="260" cy="536" rx="235" ry="50" fill="#ffffff" stroke="#F2F2F2" stroke-width="2"></ellipse>
+			</g>
+
+			<!-- ==================== 2. CASTLE TOPPER (LEFT/CENTER) ==================== -->
+			<g id="castle-topper" filter="url(#plaque-shadow)">
+				<!-- Far Left Small Turret -->
+				<rect x="140" y="195" width="26" height="45" fill="#F2F8F6" stroke="#e5e5e5" stroke-width="1"></rect>
+				<polygon points="136,195 153,152 170,195" fill="url(#roofPink)"></polygon>
+				<!-- Flagpole & Interactive Candle 0 -->
+				<g class="cursor-pointer" data-candle="0">
+					<line x1="153" y1="134" x2="153" y2="153" stroke="url(#goldGrad)" stroke-width="2.5"></line>
+					<path d="M153 135 L167 139 L153 144 Z" fill="url(#goldGrad)"></path>
+					<!-- Flame 0 -->
+					<g id="flame-0" class="animate-flame">
+						<path d="M153 112 C147 122, 146 129, 153 133 C160 129, 159 122, 153 112 Z" fill="#ffb703" filter="url(#gold-glow)"></path>
+						<path d="M153 118 C150 124, 150 129, 153 132 C156 129, 156 124, 153 118 Z" fill="#fff3b0"></path>
+					</g>
+				</g>
+
+				<!-- Left Medium Tower -->
+				<rect x="176" y="168" width="32" height="72" fill="#F2F8F6" stroke="#e5e5e5" stroke-width="1"></rect>
+				<polygon points="172,168 192,118 212,168" fill="url(#roofPink)"></polygon>
+				<!-- Window -->
+				<rect x="188" y="184" width="8" height="14" rx="4" fill="#DCB4B7"></rect>
+
+				<!-- Right Medium Tower -->
+				<rect x="246" y="168" width="32" height="72" fill="#F2F8F6" stroke="#e5e5e5" stroke-width="1"></rect>
+				<polygon points="242,168 262,118 282,168" fill="url(#roofPink)"></polygon>
+				<!-- Window -->
+				<rect x="258" y="184" width="8" height="14" rx="4" fill="#DCB4B7"></rect>
+				<!-- Flagpole & Interactive Candle 2 -->
+				<g class="cursor-pointer" data-candle="2">
+					<line x1="262" y1="100" x2="262" y2="119" stroke="url(#goldGrad)" stroke-width="2.5"></line>
+					<path d="M262 101 L276 105 L262 110 Z" fill="url(#goldGrad)"></path>
+					<!-- Flame 2 -->
+					<g id="flame-2" class="animate-flame">
+						<path d="M262 78 C256 88, 255 95, 262 99 C269 95, 268 88, 262 78 Z" fill="#ffb703" filter="url(#gold-glow)"></path>
+						<path d="M262 84 C259 90, 259 95, 262 98 C265 95, 265 90, 262 84 Z" fill="#fff3b0"></path>
+					</g>
+				</g>
+
+				<!-- Center Tallest Main Tower -->
+				<rect x="206" y="130" width="42" height="110" fill="#F2F8F6" stroke="#e5e5e5" stroke-width="1"></rect>
+				<polygon points="200,130 227,68 254,130" fill="url(#roofPink)"></polygon>
+				<!-- Arch Window on Tall Tower -->
+				<path d="M220 162 L220 148 A7 7 0 0 1 234 148 L234 162 Z" fill="#DCB4B7" stroke="#E6C0CF" stroke-width="1.5"></path>
+				<!-- Flagpole & Interactive Center Candle 1 -->
+				<g class="cursor-pointer" data-candle="1">
+					<line x1="227" y1="48" x2="227" y2="69" stroke="url(#goldGrad)" stroke-width="3"></line>
+					<path d="M227 49 L244 54 L227 60 Z" fill="url(#goldGrad)"></path>
+					<!-- Flame 1 (Main Center Candle) -->
+					<g id="flame-1" class="animate-flame">
+						<path d="M227 22 C219 34, 218 43, 227 48 C236 43, 235 34, 227 22 Z" fill="#ffb703" filter="url(#gold-glow)"></path>
+						<path d="M227 30 C223 37, 223 43, 227 46 C231 43, 231 37, 227 30 Z" fill="#fff3b0"></path>
+					</g>
+				</g>
+
+				<!-- Castle Front Wall Battlements -->
+				<rect x="195" y="176" width="64" height="64" fill="#F2F8F6" stroke="#e6e6e6" stroke-width="1"></rect>
+				<!-- Crenellations -->
+				<rect x="195" y="170" width="9" height="8" fill="#F2F8F6"></rect>
+				<rect x="209" y="170" width="9" height="8" fill="#F2F8F6"></rect>
+				<rect x="223" y="170" width="9" height="8" fill="#F2F8F6"></rect>
+				<rect x="237" y="170" width="9" height="8" fill="#F2F8F6"></rect>
+				<rect x="250" y="170" width="9" height="8" fill="#F2F8F6"></rect>
+
+				<!-- Castle Arched Pink Gate with Gold Heart -->
+				<path d="M210 240 L210 202 A17 17 0 0 1 244 202 L244 240 Z" fill="#E6C0CF" stroke="#DCB4B7" stroke-width="2"></path>
+				<line x1="227" y1="185" x2="227" y2="240" stroke="#DCB4B7" stroke-width="1.2"></line>
+				<!-- Gold Heart on Castle Door -->
+				<path
+					d="M227 215 C227 215 219 209 219 205 C219 202.5 221 201 223 201 C225 201 227 203 227 203 C227 203 229 201 231 201 C233 201 235 202.5 235 205 C235 209 227 215 227 215 Z"
+					fill="url(#goldGrad)"></path>
+
+				<!-- Pink Rainbow Archway on Left of Castle -->
+				<path d="M162 240 A20 22 0 0 1 202 240" fill="none" stroke="#E6C0CF" stroke-width="8" stroke-linecap="round"></path>
+				<path d="M166 240 A16 18 0 0 1 198 240" fill="none" stroke="#F2F8F6" stroke-width="3" stroke-linecap="round"></path>
+			</g>
+
+			<!-- ==================== 3. SCALLOPED BIRTHDAY PLAQUE (TOP RIGHT) ==================== -->
+			<g id="birthday-plaque" class="cursor-pointer" data-cake-action="open-invitation" filter="url(#plaque-shadow)">
+				<!-- Outer Pink Scalloped Edge -->
+				<circle cx="338" cy="176" r="59" fill="#E6C0CF"></circle>
+				<!-- Scallop bumps around circle -->
+				<g fill="#E6C0CF">
+					<circle cx="338" cy="115" r="8"></circle><circle cx="358" cy="118" r="8"></circle><circle cx="376" cy="127" r="8"></circle>
+					<circle cx="390" cy="142" r="8"></circle><circle cx="397" cy="160" r="8"></circle><circle cx="398" cy="180" r="8"></circle>
+					<circle cx="393" cy="199" r="8"></circle><circle cx="381" cy="216" r="8"></circle><circle cx="365" cy="228" r="8"></circle>
+					<circle cx="346" cy="235" r="8"></circle><circle cx="326" cy="234" r="8"></circle><circle cx="307" cy="227" r="8"></circle>
+					<circle cx="292" cy="214" r="8"></circle><circle cx="282" cy="197" r="8"></circle><circle cx="278" cy="177" r="8"></circle>
+					<circle cx="281" cy="157" r="8"></circle><circle cx="290" cy="139" r="8"></circle><circle cx="304" cy="125" r="8"></circle>
+					<circle cx="320" cy="118" r="8"></circle>
+				</g>
+				<!-- Inner Cream Circle -->
+				<circle cx="338" cy="176" r="52" fill="#F2F8F6" stroke="#ffffff" stroke-width="2"></circle>
+				<!-- Gold Script Text on Plaque -->
+				<text x="338" y="156" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="19" fill="#b39252">Feliz</text>
+				<text x="338" y="177" text-anchor="middle" font-family="'Cormorant Garamond', serif" font-style="italic" font-weight="700" font-size="16.5" fill="#b39252">Cumpleaños</text>
+				<text
+					id="svg-plaque-name"
+					class="dynamic-name"
+					x="338"
+					y="199"
+					text-anchor="middle"
+					font-family="'Cormorant Garamond', serif"
+					font-style="italic"
+					font-weight="700"
+					font-size="20"
+					fill="#966859">Sofía</text>
+				<!-- Small Pink Heart on Plaque -->
+				<path
+					d="M338 216 C338 216 332 211 332 208 C332 206 333.5 205 335 205 C336.5 205 338 206.5 338 206.5 C338 206.5 339.5 205 341 205 C342.5 205 344 206 344 208 C344 211 338 216 338 216 Z"
+					fill="#DCB4B7"></path>
+			</g>
+
+			<!-- ==================== 4. MAIN CAKE CYLINDER BODY ==================== -->
+			<g id="cake-cylinder">
+				<!-- Cylinder Main Body -->
+				<path d="M95 238 L95 496 A165 36 0 0 0 425 496 L425 238 Z" fill="url(#cakeFrosting)"></path>
+
+				<!-- Bottom Pink Fondant Ribbon Band -->
+				<path d="M95 478 L95 498 A165 36 0 0 0 425 498 L425 478 A165 36 0 0 1 95 478 Z" fill="url(#roseGrad)"></path>
+
+				<!-- Cake Top Rim Ellipse -->
+				<ellipse cx="260" cy="238" rx="165" ry="26" fill="#F2F8F6" stroke="#e6ece9" stroke-width="1.5"></ellipse>
+			</g>
+
+			<!-- ==================== 5. PEARL SPHERES ON TOP OF CAKE ==================== -->
+			<g id="cake-top-pearls" filter="url(#plaque-shadow)">
+				<!-- Left Cluster of Gold, Pink & White Pearls -->
+				<circle cx="136" cy="214" r="13" fill="url(#pinkSphere)"></circle>
+				<circle cx="116" cy="226" r="14" fill="url(#goldSphere)"></circle>
+				<circle cx="135" cy="229" r="12" fill="url(#whiteSphere)"></circle>
+				<circle cx="123" cy="237" r="7" fill="url(#pinkSphere)"></circle>
+				<circle cx="151" cy="231" r="16" fill="url(#whiteSphere)"></circle>
+				<circle cx="177" cy="227" r="13" fill="url(#goldSphere)"></circle>
+				<circle cx="184" cy="237" r="7.5" fill="url(#pinkSphere)"></circle>
+				<circle cx="201" cy="229" r="13" fill="url(#whiteSphere)"></circle>
+
+				<!-- Right Cluster of Gold, Pink & White Pearls -->
+				<circle cx="283" cy="214" r="16" fill="url(#pinkSphere)"></circle>
+				<circle cx="265" cy="229" r="13" fill="url(#whiteSphere)"></circle>
+				<circle cx="286" cy="233" r="7.5" fill="url(#whiteSphere)"></circle>
+				<circle cx="305" cy="228" r="12" fill="url(#goldSphere)"></circle>
+				<circle cx="385" cy="223" r="13" fill="url(#pinkSphere)"></circle>
+				<circle cx="376" cy="233" r="8" fill="url(#whiteSphere)"></circle>
+				<circle cx="364" cy="237" r="6" fill="url(#pinkSphere)"></circle>
+				<use href="#white-flower" x="355" y="236" transform="scale(1.1)"></use>
+			</g>
+
+			<!-- ==================== 6. DECORATIVE BUTTERFLIES, PEARLS & FLOWERS ON CAKE SIDE ==================== -->
+			<g id="cake-side-decorations">
+				<!-- Left Gold Butterfly -->
+				<g transform="translate(115, 280) rotate(-18)" class="animate-butterfly cursor-pointer" data-cake-action="wand">
+					<use href="#gold-butterfly" transform="scale(1.1)"></use>
+				</g>
+				<!-- Right Gold Butterfly -->
+				<g transform="translate(395, 315) rotate(15)" class="animate-butterfly cursor-pointer" data-cake-action="wand">
+					<use href="#gold-butterfly" transform="scale(1.25)"></use>
+				</g>
+				<!-- Soft Pink Daisy Flowers on Cake Wall -->
+				<g transform="translate(160, 298) scale(1.4)">
+					<use href="#pink-flower"></use>
+				</g>
+				<g transform="translate(97, 345) scale(1.1)">
+					<use href="#pink-flower"></use>
+				</g>
+				<g transform="translate(418, 360) scale(1.2)">
+					<use href="#pink-flower"></use>
+				</g>
+				<g transform="translate(410, 445) scale(1.3)">
+					<use href="#pink-flower"></use>
+				</g>
+				<!-- Tiny Sugar Pearls on Frosting -->
+				<circle cx="195" cy="292" r="3" fill="url(#whiteSphere)"></circle>
+				<circle cx="115" cy="332" r="3" fill="url(#whiteSphere)"></circle>
+				<circle cx="365" cy="285" r="3" fill="url(#whiteSphere)"></circle>
+				<circle cx="380" cy="365" r="3" fill="url(#whiteSphere)"></circle>
+				<circle cx="408" cy="402" r="3" fill="url(#whiteSphere)"></circle>
+			</g>
+
+			<!-- ==================== 7. MAGICAL ARCHED DOOR WITH NUMBER "3" ==================== -->
+			<g id="magical-door-group">
+				<!-- Secret Room Inside Door (Revealed when door opens!) -->
+				<path d="M236 502 L236 378 A68 78 0 0 1 372 378 L372 502 Z" fill="#6b473b"></path>
+				<path d="M242 498 L242 380 A62 72 0 0 1 366 380 L366 498 Z" fill="#F2F8F6"></path>
+
+				<!-- Secret Invitation Preview Inside the Open Door -->
+				<g id="door-secret-interior" class="cursor-pointer" data-cake-action="open-invitation">
+					<rect x="255" y="362" width="98" height="118" rx="10" fill="#ffffff" stroke="#CDB37B" stroke-width="2"></rect>
+					<text x="304" y="388" text-anchor="middle" font-family="'Dancing Script', cursive" font-size="14" font-weight="700" fill="#966859">¡Estás Invitado!</text>
+					<circle cx="304" cy="415" r="16" fill="#E6C0CF"></circle>
+					<text x="304" y="421" text-anchor="middle" font-size="16">👑</text>
+					<rect x="267" y="442" width="74" height="22" rx="11" fill="url(#goldGrad)"></rect>
+					<text x="304" y="457" text-anchor="middle" font-family="'Quicksand', sans-serif" font-size="9.5" font-weight="700" fill="#ffffff">VER CARTA ✨</text>
+				</g>
+
+				<!-- Swinging Pink Wood-Textured Door Panel -->
+				<g id="cake-door-panel" data-cake-action="toggle-door">
+					<path d="M236 502 L236 378 A68 78 0 0 1 372 378 L372 502 Z" fill="#E6C0CF" stroke="#DCB4B7" stroke-width="2"></path>
+					<!-- Subtle Vertical Wood-Grain Lines matching cake photo -->
+					<line x1="258" y1="322" x2="258" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
+					<line x1="280" y1="306" x2="280" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
+					<line x1="304" y1="300" x2="304" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
+					<line x1="328" y1="306" x2="328" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
+					<line x1="350" y1="322" x2="350" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
+
+					<!-- Large Pink & Gold Outlined Number "4" on Door -->
+					<text
+						id="svg-door-age"
+						class="dynamic-age"
+						x="298"
+						y="448"
+						text-anchor="middle"
+						font-family="'Quicksand', sans-serif"
+						font-weight="700"
+						font-size="102"
+						fill="#E6C0CF"
+						stroke="url(#goldGrad)"
+						stroke-width="4"
+						filter="url(#plaque-shadow)">4</text>
+
+					<!-- Puffy Gold Heart Doorknob on Right of Number 3 -->
+					<path
+						d="M348 446 C348 446 336 437 336 430 C336 425 340 422 343.5 422 C346 422 348 425 348 425 C348 425 350 422 352.5 422 C356 422 360 425 360 430 C360 437 348 446 348 446 Z"
+						fill="url(#goldSphere)"
+						filter="url(#plaque-shadow)"></path>
+				</g>
+
+				<!-- Lush Floral Garland Arch Frame Around Door -->
+				<g id="door-floral-arch" pointer-events="none">
+					<!-- Sage Green Leaves around arch -->
+					<ellipse cx="230" cy="440" rx="8" ry="4" transform="rotate(-30 230 440)" fill="#b8c9be"></ellipse>
+					<ellipse cx="232" cy="390" rx="8" ry="4" transform="rotate(-45 232 390)" fill="#b8c9be"></ellipse>
+					<ellipse cx="250" cy="335" rx="8" ry="4" transform="rotate(-25 250 335)" fill="#b8c9be"></ellipse>
+					<ellipse cx="304" cy="295" rx="8" ry="4" fill="#b8c9be"></ellipse>
+					<ellipse cx="358" cy="335" rx="8" ry="4" transform="rotate(25 358 335)" fill="#b8c9be"></ellipse>
+					<ellipse cx="376" cy="390" rx="8" ry="4" transform="rotate(45 376 390)" fill="#b8c9be"></ellipse>
+					<ellipse cx="378" cy="440" rx="8" ry="4" transform="rotate(30 378 440)" fill="#b8c9be"></ellipse>
+
+					<!-- Left Side Garland Flowers -->
+					<use href="#white-flower" x="235" y="510" transform="scale(1.1)"></use>
+					<use href="#pink-flower" x="234" y="492"></use>
+					<use href="#white-flower" x="234" y="474"></use>
+					<use href="#pink-flower" x="234" y="456"></use>
+					<use href="#white-flower" x="234" y="438"></use>
+					<use href="#pink-flower" x="234" y="420"></use>
+					<use href="#white-flower" x="234" y="402"></use>
+					<use href="#pink-flower" x="235" y="384"></use>
+					<use href="#white-flower" x="238" y="366"></use>
+					<use href="#pink-flower" x="244" y="348"></use>
+					<use href="#white-flower" x="253" y="332"></use>
+					<use href="#pink-flower" x="266" y="318"></use>
+					<use href="#white-flower" x="282" y="308"></use>
+					<!-- Top Peak Flowers -->
+					<use href="#pink-flower" x="302" y="304" transform="scale(1.15)"></use>
+					<!-- Right Side Garland Flowers -->
+					<use href="#white-flower" x="324" y="308"></use>
+					<use href="#pink-flower" x="340" y="318"></use>
+					<use href="#white-flower" x="353" y="332"></use>
+					<use href="#pink-flower" x="362" y="348"></use>
+					<use href="#white-flower" x="368" y="366"></use>
+					<use href="#pink-flower" x="371" y="384"></use>
+					<use href="#white-flower" x="372" y="402"></use>
+					<use href="#pink-flower" x="372" y="420"></use>
+					<use href="#white-flower" x="372" y="438"></use>
+					<use href="#pink-flower" x="372" y="456"></use>
+					<use href="#white-flower" x="372" y="474"></use>
+					<use href="#pink-flower" x="372" y="492"></use>
+				</g>
+			</g>
+
+			<!-- ==================== 8. LITTLE FAIRY DOLL IN PINK DRESS (BOTTOM LEFT) ==================== -->
+			<g id="fairy-princess-doll" class="cursor-pointer" data-cake-action="wand" filter="url(#soft-shadow)">
+				<!-- Little Gold Shoes -->
+				<ellipse cx="155" cy="516" rx="9" ry="7" fill="url(#goldSphere)"></ellipse>
+				<ellipse cx="174" cy="518" rx="9" ry="7" fill="url(#goldSphere)"></ellipse>
+				<!-- Legs -->
+				<rect x="151" y="495" width="8" height="20" rx="4" fill="#F2F8F6"></rect>
+				<rect x="170" y="495" width="8" height="20" rx="4" fill="#F2F8F6"></rect>
+
+				<!-- Flowing Pleated Pastel Pink Dress (#E6C0CF & #DCB4B7) -->
+				<path d="M142 425 L190 425 L222 492 C195 508, 138 508, 114 492 Z" fill="url(#roseGrad)"></path>
+				<!-- Dress Folds / Pleats Details -->
+				<path d="M152 428 L132 496" stroke="#DCB4B7" stroke-width="2" stroke-linecap="round"></path>
+				<path d="M166 428 L164 502" stroke="#DCB4B7" stroke-width="2" stroke-linecap="round"></path>
+				<path d="M180 428 L196 496" stroke="#DCB4B7" stroke-width="2" stroke-linecap="round"></path>
+				<!-- Bodice & Sleeves -->
+				<path d="M146 402 L186 402 L190 426 L142 426 Z" fill="#E6C0CF"></path>
+				<ellipse cx="142" cy="410" rx="9" ry="6" transform="rotate(-25 142 410)" fill="#E6C0CF"></ellipse>
+				<ellipse cx="190" cy="410" rx="9" ry="6" transform="rotate(25 190 410)" fill="#E6C0CF"></ellipse>
+				<!-- Gold Waist Belt -->
+				<rect x="143" y="421" width="46" height="6" rx="3" fill="url(#goldGrad)"></rect>
+
+				<!-- Arms -->
+				<path d="M138 412 L118 434" stroke="#F2F8F6" stroke-width="9" stroke-linecap="round"></path>
+				<path d="M194 412 L214 442" stroke="#F2F8F6" stroke-width="9" stroke-linecap="round"></path>
+
+				<!-- Interactive Golden Star Wand in Her Right Hand -->
+				<g id="fairy-wand-svg">
+					<line x1="134" y1="452" x2="102" y2="394" stroke="url(#goldGrad)" stroke-width="3.5" stroke-linecap="round"></line>
+					<!-- 5-Point Puffy Gold Star -->
+					<polygon
+						points="102,374 107,386 120,387 110,396 113,408 102,401 91,408 94,396 84,387 97,386"
+						fill="url(#goldSphere)"
+						stroke="#b39252"
+						stroke-width="1"></polygon>
+				</g>
+
+				<!-- Doll Head -->
+				<circle cx="166" cy="378" r="31" fill="#F2F8F6"></circle>
+				<!-- Rosy Cheeks -->
+				<ellipse cx="149" cy="385" rx="5.5" ry="3.5" fill="#E6C0CF" opacity="0.8"></ellipse>
+				<ellipse cx="183" cy="385" rx="5.5" ry="3.5" fill="#E6C0CF" opacity="0.8"></ellipse>
+				<!-- Cute Eyes & Smile -->
+				<circle cx="156" cy="378" r="2.8" fill="#3d2720"></circle>
+				<circle cx="176" cy="378" r="2.8" fill="#3d2720"></circle>
+				<path d="M162 387 Q166 392 170 387" fill="none" stroke="#3d2720" stroke-width="2" stroke-linecap="round"></path>
+
+				<!-- Textured Golden Blonde Hair & Double Space Buns -->
+				<!-- Left Space Bun -->
+				<circle cx="132" cy="342" r="18" fill="#E6C987" stroke="#BA9B57" stroke-width="1.5"></circle>
+				<path d="M120 336 Q132 328 144 338" fill="none" stroke="#BA9B57" stroke-width="1.5"></path>
+				<path d="M118 345 Q132 338 146 346" fill="none" stroke="#BA9B57" stroke-width="1.5"></path>
+				<!-- Right Space Bun -->
+				<circle cx="198" cy="342" r="18" fill="#E6C987" stroke="#BA9B57" stroke-width="1.5"></circle>
+				<path d="M186 336 Q198 328 210 338" fill="none" stroke="#BA9B57" stroke-width="1.5"></path>
+				<path d="M184 345 Q198 338 212 346" fill="none" stroke="#BA9B57" stroke-width="1.5"></path>
+
+				<!-- Hair Bangs & Strands Framing Face -->
+				<path
+					d="M134 378 C128 350, 148 336, 166 342 C184 336, 204 350, 198 378 C192 362, 178 352, 166 348 C154 352, 140 362, 134 378 Z"
+					fill="#E6C987"></path>
+				<!-- Side Hair Locks -->
+				<path d="M135 362 C126 375, 126 392, 134 398 C139 388, 142 375, 146 364 Z" fill="#E6C987"></path>
+				<path d="M197 362 C206 375, 206 392, 198 398 C193 388, 190 375, 186 364 Z" fill="#E6C987"></path>
+				<!-- Hair Strand Texture Lines -->
+				<path d="M166 345 Q150 358 134 388" fill="none" stroke="#BA9B57" stroke-width="1.4"></path>
+				<path d="M166 345 Q156 362 142 385" fill="none" stroke="#BA9B57" stroke-width="1.4"></path>
+				<path d="M166 345 Q182 358 198 388" fill="none" stroke="#BA9B57" stroke-width="1.4"></path>
+				<path d="M166 345 Q176 362 190 385" fill="none" stroke="#BA9B57" stroke-width="1.4"></path>
+
+				<!-- Gold Hair Clips on Both Buns -->
+				<g transform="translate(141, 350)">
+					<circle cx="-4" cy="-3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="4" cy="-3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="-4" cy="3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="4" cy="3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="0" cy="0" r="2.5" fill="#966859"></circle>
+				</g>
+				<g transform="translate(189, 350)">
+					<circle cx="-4" cy="-3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="4" cy="-3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="-4" cy="3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="4" cy="3" r="3.5" fill="url(#goldSphere)"></circle>
+					<circle cx="0" cy="0" r="2.5" fill="#966859"></circle>
+				</g>
+			</g>
+		</svg>
+	</div>
+</birthday-cake>
+
+<script>
+	import { partyState, createParticles, emitPartyEvent, showToast } from '../scripts/partyStore';
+	import {
+		playSparkleChime,
+		playCandleBlowSound,
+		playDoorCreakChime,
+		playHappyBirthdayMelody,
+	} from '../scripts/audioManager';
+
+	class BirthdayCakeElement extends HTMLElement {
+		private triggerMagicWand = () => {
+			const wand = this.querySelector('#fairy-wand-svg') as HTMLElement | SVGElement | null;
+			if (wand) {
+				wand.classList.remove('wand-active');
+				void wand.getBoundingClientRect();
+				wand.classList.add('wand-active');
+			}
+
+			playSparkleChime();
+			const svgEl = this.querySelector('#birthday-cake-svg');
+			if (svgEl) {
+				const svgRect = svgEl.getBoundingClientRect();
+				const wandX = svgRect.left + svgRect.width * 0.22;
+				const wandY = svgRect.top + svgRect.height * 0.64;
+				createParticles(wandX, wandY, 35);
+			}
+			showToast(`¡La varita de hada de ${partyState.name} lanzó un deseo mágico de cumpleaños!`);
+		};
+
+		private blowCandle = (index: number) => {
+			if (!partyState.candlesLit[index]) return;
+			partyState.candlesLit[index] = false;
+			const flameEl = this.querySelector(`#flame-${index}`) as HTMLElement | SVGElement | null;
+			if (flameEl) {
+				flameEl.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+				flameEl.style.opacity = '0';
+				flameEl.style.transform = 'scale(0.1)';
+			}
+
+			playCandleBlowSound();
+			const svgEl = this.querySelector('#birthday-cake-svg');
+			if (svgEl) {
+				const svgRect = svgEl.getBoundingClientRect();
+				createParticles(svgRect.left + svgRect.width * 0.43, svgRect.top + svgRect.height * 0.14, 22);
+			}
+
+			this.checkAllCandlesBlown();
+		};
+
+		private blowAllCandles = () => {
+			let anyLit = false;
+			([0, 1, 2] as const).forEach((idx, delayIdx) => {
+				if (partyState.candlesLit[idx]) {
+					anyLit = true;
+					setTimeout(() => this.blowCandle(idx), delayIdx * 180);
+				}
+			});
+			if (!anyLit) {
+				showToast(`¡Todas las velas están apagadas! Toca la Puerta #${partyState.age} o Encender velas.`);
+			}
+		};
+
+		private checkAllCandlesBlown() {
+			const allOut = partyState.candlesLit.every((lit) => !lit);
+			if (allOut && partyState.step === 1) {
+				partyState.step = 2;
+				playHappyBirthdayMelody();
+
+				const doorPanel = this.querySelector('#cake-door-panel');
+				doorPanel?.classList.add('door-ready');
+
+				const bubbleText = this.querySelector('#bubble-text');
+				if (bubbleText) {
+					bubbleText.textContent = `¡Toca la brillante Puerta #${partyState.age} para abrirla! 🚪✨`;
+				}
+
+				emitPartyEvent('party:step-changed');
+				showToast(`¡Bien! ¡Pide un deseo! ¡Ahora toca la Puerta #${partyState.age} en el pastel!`);
+			}
+		}
+
+		private toggleCakeDoor = () => {
+			const doorPanel = this.querySelector('#cake-door-panel');
+			const bubbleText = this.querySelector('#bubble-text');
+			partyState.doorOpen = !partyState.doorOpen;
+
+			if (partyState.doorOpen) {
+				doorPanel?.classList.remove('door-ready');
+				doorPanel?.classList.add('door-open');
+				playDoorCreakChime();
+
+				const svgEl = this.querySelector('#birthday-cake-svg');
+				if (svgEl) {
+					const svgRect = svgEl.getBoundingClientRect();
+					createParticles(svgRect.left + svgRect.width * 0.58, svgRect.top + svgRect.height * 0.68, 45);
+				}
+
+				partyState.step = 3;
+				if (bubbleText) {
+					bubbleText.textContent = '¡Toca dentro de la puerta abierta para ver tu tarjeta sorpresa! 💌';
+				}
+				emitPartyEvent('party:step-changed');
+
+				setTimeout(() => {
+					emitPartyEvent('party:open-invitation');
+				}, 1150);
+			} else {
+				doorPanel?.classList.remove('door-open');
+				playSparkleChime();
+				if (bubbleText) {
+					bubbleText.textContent = `¡Toca la Puerta #${partyState.age} cuando quieras para asomarte dentro!`;
+				}
+			}
+		};
+
+		private resetCakeExperience = () => {
+			partyState.candlesLit = [true, true, true];
+			partyState.doorOpen = false;
+			partyState.step = 1;
+
+			([0, 1, 2] as const).forEach((idx) => {
+				const flameEl = this.querySelector(`#flame-${idx}`) as HTMLElement | SVGElement | null;
+				if (flameEl) {
+					flameEl.style.opacity = '1';
+					flameEl.style.transform = 'scale(1)';
+				}
+			});
+
+			const doorPanel = this.querySelector('#cake-door-panel');
+			doorPanel?.classList.remove('door-open', 'door-ready');
+
+			const bubbleText = this.querySelector('#bubble-text');
+			if (bubbleText) {
+				bubbleText.textContent = '¡Toca las velas brillantes del castillo o la varita estrellada del hada!';
+			}
+
+			emitPartyEvent('party:step-changed');
+			playSparkleChime();
+			showToast('¡Velas encendidas de nuevo! ¡Lista para pedir otro deseo de cumpleaños!');
+		};
+
+		connectedCallback() {
+			this.querySelectorAll('[data-candle]').forEach((candleGroup) => {
+				candleGroup.addEventListener('click', () => {
+					const idx = Number(candleGroup.getAttribute('data-candle'));
+					if (!Number.isNaN(idx)) this.blowCandle(idx);
+				});
+			});
+
+			this.querySelectorAll('[data-cake-action="wand"]').forEach((el) => {
+				el.addEventListener('click', this.triggerMagicWand);
+			});
+
+			this.querySelectorAll('[data-cake-action="open-invitation"]').forEach((el) => {
+				el.addEventListener('click', () => emitPartyEvent('party:open-invitation'));
+			});
+
+			this.querySelectorAll('[data-cake-action="toggle-door"]').forEach((el) => {
+				el.addEventListener('click', this.toggleCakeDoor);
+			});
+
+			window.addEventListener('party:wand-burst', this.triggerMagicWand);
+			window.addEventListener('party:blow-all-candles', this.blowAllCandles);
+			window.addEventListener('party:toggle-door', this.toggleCakeDoor);
+			window.addEventListener('party:reset-cake', this.resetCakeExperience);
+		}
+
+		disconnectedCallback() {
+			window.removeEventListener('party:wand-burst', this.triggerMagicWand);
+			window.removeEventListener('party:blow-all-candles', this.blowAllCandles);
+			window.removeEventListener('party:toggle-door', this.toggleCakeDoor);
+			window.removeEventListener('party:reset-cake', this.resetCakeExperience);
+		}
+	}
+
+	if (!customElements.get('birthday-cake')) {
+		customElements.define('birthday-cake', BirthdayCakeElement);
+	}
+</script>
