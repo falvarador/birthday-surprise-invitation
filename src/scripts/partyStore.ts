@@ -7,7 +7,7 @@ export interface PartyState {
   dressCode: string;
   surpriseMessage: string;
   wandActivated: boolean;
-  candlesLit: [boolean, boolean, boolean];
+  candlesLit: [boolean, boolean, boolean, boolean];
   doorOpen: boolean;
   step: 1 | 2 | 3 | 4; // 1: Acto 1 (Magia del Hada), 2: Acto 2 (Deseo Real / Velas), 3: Acto 3 (Puerta #4), 4: Cuento Completado
   audioEnabled: boolean;
@@ -19,11 +19,11 @@ export const partyState: PartyState = {
   dateISO: '2026-11-14',
   timeText: '3:00 PM – 6:30 PM',
   venue: 'Casa Club, Condominio Uniko San Francisco',
-  dressCode: 'Rosa Pastel, Crema y un Toque de Dorado',
+  dressCode: ' Ropa fresca y relajada',
   surpriseMessage:
-    '"¡Ponte tu vestido de princesa favorito, piquito! ¡Tus mejores amigos, familiares, seres queridos y este pastel de castillo de hadas te están esperando solo a ti!"',
+    '"¡Ponte tu vestido de princesa favorito, piquito! ¡Tus mejores amigos, familiares y este pastel de castillo de hadas te están esperando solo a ti!"',
   wandActivated: false,
-  candlesLit: [true, true, true],
+  candlesLit: [true, true, true, true],
   doorOpen: false,
   step: 1,
   audioEnabled: true,

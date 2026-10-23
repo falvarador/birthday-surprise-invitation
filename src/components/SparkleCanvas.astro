@@ -1,5 +1,5 @@
 <sparkle-canvas class="contents">
-	<canvas id="sparkle-canvas" class="fixed inset-0 pointer-events-none z-30"></canvas>
+	<canvas id="sparkle-canvas" class="fixed inset-0 pointer-events-none z-[60]"></canvas>
 
 	<!-- Background Decorative Blobs using the exact palette -->
 	<div class="fixed inset-0 overflow-hidden pointer-events-none z-0" aria-hidden="true">
@@ -21,7 +21,7 @@
 		decay: number;
 		rotation: number;
 		vRot: number;
-		shape: 'star' | 'heart' | 'circle';
+		shape: 'star' | 'heart' | 'circle' | 'confetti';
 	}
 
 	class SparkleCanvasElement extends HTMLElement {
@@ -29,7 +29,7 @@
 		private ctx!: CanvasRenderingContext2D;
 		private particles: Particle[] = [];
 		private animationFrameId = 0;
-		private readonly paletteColors = ['#966859', '#E6C0CF', '#DCB4B7', '#CDB37B', '#FFF5D6'];
+		private readonly paletteColors = ['#966859', '#E6C0CF', '#DCB4B7', '#CDB37B', '#FFF5D6', '#F4A6B8', '#D4AF37'];
 
 		private handleResize = () => {
 			if (!this.canvas) return;
@@ -42,7 +42,7 @@
 				x: number;
 				y: number;
 				count?: number;
-				type?: 'mix' | 'star' | 'heart' | 'circle';
+				type?: 'mix' | 'star' | 'heart' | 'circle' | 'confetti';
 			}>;
 			const { x, y, count = 28, type = 'mix' } = customEvent.detail;
 			this.spawnParticles(x, y, count, type);
@@ -68,27 +68,34 @@
 			cancelAnimationFrame(this.animationFrameId);
 		}
 
+		private pickMixShape(): 'star' | 'heart' | 'confetti' {
+			const r = Math.random();
+			if (r < 0.4) return 'confetti';
+			if (r < 0.75) return 'star';
+			return 'heart';
+		}
+
 		private spawnParticles(
 			x: number,
 			y: number,
 			count = 28,
-			type: 'mix' | 'star' | 'heart' | 'circle' = 'mix'
+			type: 'mix' | 'star' | 'heart' | 'circle' | 'confetti' = 'mix'
 		) {
 			for (let i = 0; i < count; i++) {
 				const angle = Math.random() * Math.PI * 2;
-				const speed = Math.random() * 6 + 1.5;
+				const speed = Math.random() * 7 + 2;
 				this.particles.push({
 					x,
 					y,
 					vx: Math.cos(angle) * speed,
-					vy: Math.sin(angle) * speed - 2.2,
-					size: Math.random() * 7 + 4,
+					vy: Math.sin(angle) * speed - 2.6,
+					size: Math.random() * 8 + 4.5,
 					color: this.paletteColors[Math.floor(Math.random() * this.paletteColors.length)],
 					alpha: 1,
-					decay: Math.random() * 0.015 + 0.008,
+					decay: Math.random() * 0.012 + 0.006,
 					rotation: Math.random() * Math.PI * 2,
-					vRot: (Math.random() - 0.5) * 0.15,
-					shape: type === 'mix' ? (Math.random() > 0.45 ? 'star' : 'heart') : type,
+					vRot: (Math.random() - 0.5) * 0.18,
+					shape: type === 'mix' ? this.pickMixShape() : type,
 				});
 			}
 		}
@@ -164,6 +171,10 @@
 					this.ctx.bezierCurveTo(0, 8 * s, 5 * s, 6 * s, 5 * s, 3 * s);
 					this.ctx.bezierCurveTo(5 * s, 0, 0, 0, 0, 3 * s);
 					this.ctx.fill();
+				} else if (p.shape === 'confetti') {
+					const w = p.size * 1.4;
+					const h = p.size * 0.65 * Math.max(0.25, Math.abs(Math.cos(p.rotation * 2)));
+					this.ctx.fillRect(-w / 2, -h / 2, w, h);
 				} else {
 					this.ctx.beginPath();
 					this.ctx.arc(0, 0, p.size / 1.6, 0, Math.PI * 2);
