@@ -7,7 +7,7 @@
 	>
 		<!-- Interactive Progress Pill -->
 		<div
-			class="inline-flex items-center gap-1.5 bg-white/90 px-3 py-1 rounded-full border border-palette-pink shadow-xs mb-1 sm:mb-2"
+			class="inline-flex items-center gap-1.5 bg-white/90 px-3 py-0.5 sm:py-1 rounded-full border border-palette-pink shadow-xs mb-1 sm:mb-2"
 		>
 			<span
 				id="step-badge"
@@ -15,7 +15,7 @@
 			></span>
 			<span
 				id="step-indicator-text"
-				class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-palette-brown"
+				class="text-sm sm:text-xs font-bold uppercase tracking-wider text-palette-brown"
 			>
 				Paso 1 de 3 • La magia del Hada
 			</span>
@@ -23,7 +23,7 @@
 
 		<h2
 			id="main-heading"
-			class="font-script text-2xl sm:text-4xl lg:text-5xl text-palette-brown leading-tight mb-1 sm:mb-2"
+			class="font-script text-4xl sm:text-5xl lg:text-6xl text-palette-brown leading-tight mb-1 sm:mb-2"
 		>
 			¡Feliz Cumpleaños, <span
 				class="dynamic-name text-palette-rose underline decoration-palette-gold/60"
@@ -33,7 +33,7 @@
 
 		<p
 			id="main-instruction"
-			class="text-xs sm:text-sm lg:text-base text-palette-brown/90 bg-white/85 backdrop-blur-xs px-3.5 py-2.5 sm:p-4 rounded-2xl border border-palette-pink/70 shadow-xs w-full leading-snug sm:leading-relaxed"
+			class="text-base sm:text-lg text-palette-brown/90 bg-white/85 backdrop-blur-xs p-3.5 sm:p-4 rounded-2xl border border-palette-pink/70 shadow-xs w-full leading-snug"
 		>
 			El castillo real duerme bajo un hechizo de estrellas. <strong
 				>Toca a la pequeña princesa hada</strong
@@ -44,13 +44,13 @@
 
 	<!-- Bottom Fixed & Visible Primary Action Button (Order 3 on Mobile: Below the Cake) -->
 	<div
-		class="order-3 shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2 w-full max-w-md pb-1.5 sm:pb-1 lg:mt-4"
+		class="order-3 shrink-0 flex flex-col sm:flex-row lg:flex-col gap-1.5 sm:gap-2 w-full max-w-md pb-1 sm:pb-1 lg:mt-4"
 	>
 		<button
 			type="button"
 			id="primary-action-btn"
 			data-action="primary"
-			class="flex-1 w-full py-3 sm:py-3.5 px-5 rounded-2xl gold-badge text-white font-bold text-sm sm:text-base shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer animate-glow"
+			class="flex-1 w-full py-2.5 sm:py-3.5 px-5 rounded-2xl gold-badge text-white font-bold text-base sm:text-lg shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer animate-glow"
 		>
 			<span id="primary-action-icon" aria-hidden="true">🪄</span>
 			<span id="primary-action-text">Despertar la magia del pastel</span>
@@ -60,7 +60,7 @@
 			type="button"
 			id="replay-magic-btn"
 			data-action="reset-cake"
-			class="hidden w-full sm:w-auto lg:w-full py-2.5 sm:py-3 px-4 rounded-2xl bg-white/90 hover:bg-palette-pink/30 text-palette-brown font-bold text-xs sm:text-sm border-2 border-palette-pink shadow-xs transition-all items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
+			class="hidden w-full sm:w-auto lg:w-full py-2 sm:py-3 px-4 rounded-2xl bg-white/90 hover:bg-palette-pink/30 text-palette-brown font-bold text-sm border-2 border-palette-pink shadow-xs transition-all items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
 		>
 			<span aria-hidden="true">🔄</span>
 			<span>Repetir la magia</span>
