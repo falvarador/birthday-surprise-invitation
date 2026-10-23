@@ -1,19 +1,10 @@
-<birthday-cake class="w-full lg:w-7/12 flex flex-col items-center justify-center order-1 lg:order-2 relative">
-	<!-- Floating speech bubble hint on the cake -->
-	<div
-		id="cake-speech-bubble"
-		class="mb-1 px-4 py-1.5 rounded-full bg-white border-2 border-palette-gold shadow-md text-xs sm:text-sm font-bold text-palette-brown flex items-center gap-2 animate-bounce"
-	>
-		<span aria-hidden="true">✨</span>
-		<span id="bubble-text">¡Toca a la princesita hada o su varita estrellada para despertar la magia! 🪄✨</span>
-	</div>
-
+<birthday-cake class="order-2 flex-1 min-h-0 w-full lg:w-7/12 flex items-center justify-center relative">
 	<!-- Interactive SVG Cake Container -->
-	<div class="w-full max-w-[460px] sm:max-w-[520px] aspect-[520/610] relative flex items-center justify-center">
+	<div class="w-auto h-full max-h-[48dvh] sm:max-h-[52dvh] lg:max-h-[78dvh] aspect-[520/610] relative flex items-center justify-center">
 		<svg
 			id="birthday-cake-svg"
 			viewBox="0 0 520 610"
-			class="w-full h-full drop-shadow-xl overflow-visible"
+			class="w-full h-full max-h-full drop-shadow-xl overflow-visible"
 			role="img"
 			aria-label="Pastel de Castillo de Cumpleaños Mágico Interactivo"
 		>
@@ -118,6 +109,8 @@
 				<polygon points="136,195 153,152 170,195" fill="url(#roofPink)"></polygon>
 				<!-- Flagpole & Interactive Candle 0 -->
 				<g class="cursor-pointer" data-candle="0">
+					<!-- Expanded Invisible Touch Hitbox -->
+					<rect x="120" y="92" width="66" height="72" rx="16" fill="transparent"></rect>
 					<line x1="153" y1="134" x2="153" y2="153" stroke="url(#goldGrad)" stroke-width="2.5"></line>
 					<path d="M153 135 L167 139 L153 144 Z" fill="url(#goldGrad)"></path>
 					<!-- Flame 0 -->
@@ -132,6 +125,18 @@
 				<polygon points="172,168 192,118 212,168" fill="url(#roofPink)"></polygon>
 				<!-- Window -->
 				<rect x="188" y="184" width="8" height="14" rx="4" fill="#DCB4B7"></rect>
+				<!-- Flagpole & Interactive Candle 3 -->
+				<g class="cursor-pointer" data-candle="3">
+					<!-- Expanded Invisible Touch Hitbox -->
+					<rect x="162" y="58" width="60" height="72" rx="16" fill="transparent"></rect>
+					<line x1="192" y1="100" x2="192" y2="119" stroke="url(#goldGrad)" stroke-width="2.5"></line>
+					<path d="M192 101 L206 105 L192 110 Z" fill="url(#goldGrad)"></path>
+					<!-- Flame 3 -->
+					<g id="flame-3" class="animate-flame">
+						<path d="M192 78 C186 88, 185 95, 192 99 C199 95, 198 88, 192 78 Z" fill="#ffb703" filter="url(#gold-glow)"></path>
+						<path d="M192 84 C189 90, 189 95, 192 98 C195 95, 195 90, 192 84 Z" fill="#fff3b0"></path>
+					</g>
+				</g>
 
 				<!-- Right Medium Tower -->
 				<rect x="246" y="168" width="32" height="72" fill="#F2F8F6" stroke="#e5e5e5" stroke-width="1"></rect>
@@ -140,6 +145,8 @@
 				<rect x="258" y="184" width="8" height="14" rx="4" fill="#DCB4B7"></rect>
 				<!-- Flagpole & Interactive Candle 2 -->
 				<g class="cursor-pointer" data-candle="2">
+					<!-- Expanded Invisible Touch Hitbox -->
+					<rect x="232" y="58" width="66" height="72" rx="16" fill="transparent"></rect>
 					<line x1="262" y1="100" x2="262" y2="119" stroke="url(#goldGrad)" stroke-width="2.5"></line>
 					<path d="M262 101 L276 105 L262 110 Z" fill="url(#goldGrad)"></path>
 					<!-- Flame 2 -->
@@ -156,6 +163,8 @@
 				<path d="M220 162 L220 148 A7 7 0 0 1 234 148 L234 162 Z" fill="#DCB4B7" stroke="#E6C0CF" stroke-width="1.5"></path>
 				<!-- Flagpole & Interactive Center Candle 1 -->
 				<g class="cursor-pointer" data-candle="1">
+					<!-- Expanded Invisible Touch Hitbox -->
+					<rect x="192" y="6" width="74" height="76" rx="18" fill="transparent"></rect>
 					<line x1="227" y1="48" x2="227" y2="69" stroke="url(#goldGrad)" stroke-width="3"></line>
 					<path d="M227 49 L244 54 L227 60 Z" fill="url(#goldGrad)"></path>
 					<!-- Flame 1 (Main Center Candle) -->
@@ -307,6 +316,8 @@
 
 				<!-- Swinging Pink Wood-Textured Door Panel -->
 				<g id="cake-door-panel" data-cake-action="toggle-door">
+					<!-- Expanded Invisible Touch Hitbox for Door -->
+					<rect x="224" y="294" width="160" height="218" rx="24" fill="transparent"></rect>
 					<path d="M236 502 L236 378 A68 78 0 0 1 372 378 L372 502 Z" fill="#E6C0CF" stroke="#DCB4B7" stroke-width="2"></path>
 					<!-- Subtle Vertical Wood-Grain Lines matching cake photo -->
 					<line x1="258" y1="322" x2="258" y2="502" stroke="#DCB4B7" stroke-width="1.2" opacity="0.7"></line>
@@ -381,7 +392,9 @@
 			</g>
 
 			<!-- ==================== 8. LITTLE FAIRY DOLL IN PINK DRESS (BOTTOM LEFT) ==================== -->
-			<g id="fairy-princess-doll" class="cursor-pointer" data-cake-action="wand" filter="url(#soft-shadow)">
+			<g id="fairy-princess-doll" class="cursor-pointer cake-target-glow" data-cake-action="wand" filter="url(#soft-shadow)">
+				<!-- Expanded Invisible Touch Hitbox for Fairy & Wand -->
+				<rect x="74" y="315" width="154" height="215" rx="24" fill="transparent"></rect>
 				<!-- Little Gold Shoes -->
 				<ellipse cx="155" cy="516" rx="9" ry="7" fill="url(#goldSphere)"></ellipse>
 				<ellipse cx="174" cy="518" rx="9" ry="7" fill="url(#goldSphere)"></ellipse>
@@ -480,6 +493,18 @@
 	} from '../scripts/audioManager';
 
 	class BirthdayCakeElement extends HTMLElement {
+		private updateActiveTargetHighlight = () => {
+			const fairy = this.querySelector('#fairy-princess-doll');
+			const candles = this.querySelectorAll('[data-candle]');
+			const doorPanel = this.querySelector('#cake-door-panel');
+			const secretInterior = this.querySelector('#door-secret-interior');
+
+			fairy?.classList.toggle('cake-target-glow', partyState.step === 1);
+			candles.forEach((c) => c.classList.toggle('cake-target-glow', partyState.step === 2));
+			doorPanel?.classList.toggle('cake-target-glow', partyState.step === 3);
+			secretInterior?.classList.toggle('cake-target-glow', partyState.step === 4);
+		};
+
 		private triggerMagicWand = () => {
 			const wand = this.querySelector('#fairy-wand-svg') as HTMLElement | SVGElement | null;
 			if (wand) {
@@ -500,14 +525,10 @@
 			if (partyState.step === 1) {
 				partyState.wandActivated = true;
 				partyState.step = 2;
-				const bubbleText = this.querySelector('#bubble-text');
-				if (bubbleText) {
-					bubbleText.textContent =
-						'¡Pide un deseo y toca las 3 velas encendidas del castillo para soplarlas! 🕯️✨';
-				}
+				this.updateActiveTargetHighlight();
 				emitPartyEvent('party:step-changed');
 				showToast(
-					'¡La varita mágica despertó el castillo! Ahora pide un deseo y sopla las 3 velas.'
+					'¡La varita mágica despertó el castillo! Ahora pide un deseo y sopla las 4 velas.'
 				);
 			} else {
 				showToast(`¡La varita de hada de ${partyState.name} lanzó polvo de estrellas mágico!`);
@@ -546,10 +567,10 @@
 				return;
 			}
 			let anyLit = false;
-			([0, 1, 2] as const).forEach((idx, delayIdx) => {
+			([0, 3, 1, 2] as const).forEach((idx, delayIdx) => {
 				if (partyState.candlesLit[idx]) {
 					anyLit = true;
-					setTimeout(() => this.blowCandle(idx), delayIdx * 180);
+					setTimeout(() => this.blowCandle(idx), delayIdx * 150);
 				}
 			});
 			if (!anyLit) {
@@ -565,11 +586,7 @@
 
 				const doorPanel = this.querySelector('#cake-door-panel');
 				doorPanel?.classList.add('door-ready');
-
-				const bubbleText = this.querySelector('#bubble-text');
-				if (bubbleText) {
-					bubbleText.textContent = `¡Tu deseo desbloqueó la Puerta Floral #${partyState.age}! ¡Tócala para abrirla! 🚪✨`;
-				}
+				this.updateActiveTargetHighlight();
 
 				emitPartyEvent('party:step-changed');
 				showToast(`¡Deseo enviado a las estrellas! ¡La Puerta #${partyState.age} ahora brilla para ti!`);
@@ -584,12 +601,11 @@
 			}
 			if (partyState.step === 2) {
 				playSparkleChime();
-				showToast('🕯️ ¡Primero pide un deseo y sopla las 3 velas del castillo para desbloquear la puerta!');
+				showToast('🕯️ ¡Primero pide un deseo y sopla las 4 velas del castillo para desbloquear la puerta!');
 				return;
 			}
 
 			const doorPanel = this.querySelector('#cake-door-panel');
-			const bubbleText = this.querySelector('#bubble-text');
 			partyState.doorOpen = !partyState.doorOpen;
 
 			if (partyState.doorOpen) {
@@ -604,9 +620,7 @@
 				}
 
 				partyState.step = 4;
-				if (bubbleText) {
-					bubbleText.textContent = '¡Toca dentro de la puerta abierta para ver tu Tarjeta de Invitación Real! 💌';
-				}
+				this.updateActiveTargetHighlight();
 				emitPartyEvent('party:step-changed');
 
 				setTimeout(() => {
@@ -616,19 +630,16 @@
 				doorPanel?.classList.remove('door-open');
 				doorPanel?.classList.add('door-ready');
 				playSparkleChime();
-				if (bubbleText) {
-					bubbleText.textContent = `¡Toca la Puerta #${partyState.age} cuando quieras para volver a ver tu sorpresa!`;
-				}
 			}
 		};
 
 		private resetCakeExperience = () => {
 			partyState.wandActivated = false;
-			partyState.candlesLit = [true, true, true];
+			partyState.candlesLit = [true, true, true, true];
 			partyState.doorOpen = false;
 			partyState.step = 1;
 
-			([0, 1, 2] as const).forEach((idx) => {
+			([0, 1, 2, 3] as const).forEach((idx) => {
 				const flameEl = this.querySelector(`#flame-${idx}`) as HTMLElement | SVGElement | null;
 				if (flameEl) {
 					flameEl.style.opacity = '1';
@@ -638,11 +649,7 @@
 
 			const doorPanel = this.querySelector('#cake-door-panel');
 			doorPanel?.classList.remove('door-open', 'door-ready');
-
-			const bubbleText = this.querySelector('#bubble-text');
-			if (bubbleText) {
-				bubbleText.textContent = '¡Toca a la princesita hada o su varita estrellada para despertar la magia! 🪄✨';
-			}
+			this.updateActiveTargetHighlight();
 
 			emitPartyEvent('party:step-changed');
 			playSparkleChime();
@@ -650,10 +657,11 @@
 		};
 
 		connectedCallback() {
+			this.updateActiveTargetHighlight();
+
 			this.querySelectorAll('[data-candle]').forEach((candleGroup) => {
 				candleGroup.addEventListener('click', () => {
-					const idx = Number(candleGroup.getAttribute('data-candle'));
-					if (!Number.isNaN(idx)) this.blowCandle(idx);
+					this.blowAllCandles();
 				});
 			});
 
@@ -677,6 +685,7 @@
 			window.addEventListener('party:blow-all-candles', this.blowAllCandles);
 			window.addEventListener('party:toggle-door', this.toggleCakeDoor);
 			window.addEventListener('party:reset-cake', this.resetCakeExperience);
+			window.addEventListener('party:step-changed', this.updateActiveTargetHighlight);
 		}
 
 		disconnectedCallback() {
@@ -684,6 +693,7 @@
 			window.removeEventListener('party:blow-all-candles', this.blowAllCandles);
 			window.removeEventListener('party:toggle-door', this.toggleCakeDoor);
 			window.removeEventListener('party:reset-cake', this.resetCakeExperience);
+			window.removeEventListener('party:step-changed', this.updateActiveTargetHighlight);
 		}
 	}
 

@@ -94,19 +94,36 @@ export function playHappyBirthdayMelody(): void {
 
 export function celebrateGrandFinale(): void {
   playHappyBirthdayMelody();
-  window.dispatchEvent(
-    new CustomEvent('party:particles', {
-      detail: { x: window.innerWidth * 0.25, y: window.innerHeight * 0.4, count: 35, type: 'mix' },
-    })
-  );
-  window.dispatchEvent(
-    new CustomEvent('party:particles', {
-      detail: { x: window.innerWidth * 0.75, y: window.innerHeight * 0.4, count: 35, type: 'mix' },
-    })
-  );
-  window.dispatchEvent(
-    new CustomEvent('party:particles', {
-      detail: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.25, count: 40, type: 'mix' },
-    })
-  );
+
+  const triggerBurstWave = () => {
+    window.dispatchEvent(
+      new CustomEvent('party:particles', {
+        detail: { x: window.innerWidth * 0.22, y: window.innerHeight * 0.35, count: 40, type: 'mix' },
+      })
+    );
+    window.dispatchEvent(
+      new CustomEvent('party:particles', {
+        detail: { x: window.innerWidth * 0.78, y: window.innerHeight * 0.35, count: 40, type: 'mix' },
+      })
+    );
+    window.dispatchEvent(
+      new CustomEvent('party:particles', {
+        detail: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.22, count: 45, type: 'mix' },
+      })
+    );
+  };
+
+  triggerBurstWave();
+  window.setTimeout(() => {
+    window.dispatchEvent(
+      new CustomEvent('party:particles', {
+        detail: { x: window.innerWidth * 0.35, y: window.innerHeight * 0.5, count: 35, type: 'mix' },
+      })
+    );
+    window.dispatchEvent(
+      new CustomEvent('party:particles', {
+        detail: { x: window.innerWidth * 0.65, y: window.innerHeight * 0.5, count: 35, type: 'mix' },
+      })
+    );
+  }, 320);
 }

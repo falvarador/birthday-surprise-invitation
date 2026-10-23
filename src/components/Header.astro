@@ -1,83 +1,44 @@
 <birthday-header class="contents">
 	<header
-		class="relative z-20 w-full max-w-6xl mx-auto px-4 pt-4 pb-2 flex flex-wrap items-center justify-between gap-3"
+		class="relative z-20 shrink-0 w-full max-w-6xl mx-auto px-3 sm:px-4 pt-2 pb-1 flex items-center justify-between gap-2"
 	>
-		<!-- Brand / Palette Indicator -->
+		<!-- Compact Brand / Title Left -->
 		<div
-			class="flex items-center gap-3 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full shadow-sm border border-palette-pink/60"
+			class="flex items-center gap-2 bg-white/85 backdrop-blur-md px-3 py-1.5 rounded-full shadow-xs border border-palette-pink/60"
 		>
-			<div class="flex -space-x-1.5" aria-hidden="true">
-				<span
-					class="w-4 h-4 rounded-full border border-white shadow-xs bg-palette-brown"
-				></span>
-				<span
-					class="w-4 h-4 rounded-full border border-white shadow-xs bg-palette-pink"
-				></span>
-				<span
-					class="w-4 h-4 rounded-full border border-white shadow-xs bg-palette-rose"
-				></span>
-				<span
-					class="w-4 h-4 rounded-full border border-white shadow-xs bg-palette-mint"
-				></span>
-				<span
-					class="w-4 h-4 rounded-full border border-white shadow-xs bg-palette-gold"
-				></span>
-				<span
-					class="w-4 h-4 rounded-full border border-white shadow-xs bg-palette-gray"
-				></span>
-			</div>
+			<span class="text-sm leading-none" aria-hidden="true">👑</span>
 			<span
-				class="text-xs sm:text-sm font-semibold tracking-wide text-palette-brown"
+				class="text-xs sm:text-sm font-bold tracking-wide text-palette-brown truncate"
 			>
-				<span id="nav-name-display" class="dynamic-name">Sofía</span> está
-				cumpliendo <span id="nav-age-display" class="dynamic-age"
+				Cumpleaños #<span id="nav-age-display" class="dynamic-age"
 					>4</span
-				> años
+				> de <span id="nav-name-display" class="dynamic-name"
+					>Sofía</span
+				>
 			</span>
 		</div>
 
-		<!-- Action Controls -->
-		<div class="flex items-center gap-2 sm:gap-3">
-			<button
-				type="button"
-				id="btn-wand-burst"
-				data-action="wand"
-				class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/90 hover:bg-palette-pink/40 text-palette-brown border border-palette-gold/60 shadow-sm transition-all text-xs sm:text-sm font-semibold active:scale-95 cursor-pointer"
-				aria-label="Lanzar polvo de hadas mágico"
-			>
-				<span aria-hidden="true">🪄</span>
-				<span class="hidden sm:inline">Varita mágica</span>
-			</button>
-
-			<button
-				type="button"
-				id="btn-sound"
-				data-action="sound"
-				class="flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-white/90 hover:bg-palette-pink/40 text-palette-brown border border-palette-pink shadow-sm transition-all text-xs sm:text-sm font-semibold active:scale-95 cursor-pointer"
-			>
-				<span id="sound-icon" aria-hidden="true">🎵</span>
-				<span id="sound-label" class="hidden sm:inline">Música</span>
-			</button>
-		</div>
+		<!-- Music Button Right -->
+		<button
+			type="button"
+			id="btn-sound"
+			data-action="sound"
+			class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-palette-pink/40 text-palette-brown border border-palette-pink shadow-xs transition-all text-xs sm:text-sm font-semibold active:scale-95 cursor-pointer shrink-0"
+			aria-label="Alternar música mágica"
+		>
+			<span id="sound-icon" aria-hidden="true">🎵</span>
+			<span id="sound-label">Música</span>
+		</button>
 	</header>
 </birthday-header>
 
 <script>
-	import {
-		partyState,
-		emitPartyEvent,
-		showToast,
-	} from "../scripts/partyStore";
+	import { partyState, showToast } from "../scripts/partyStore";
 	import { playSparkleChime } from "../scripts/audioManager";
 
 	class BirthdayHeaderElement extends HTMLElement {
 		connectedCallback() {
-			const wandBtn = this.querySelector('[data-action="wand"]');
 			const soundBtn = this.querySelector('[data-action="sound"]');
-
-			wandBtn?.addEventListener("click", () => {
-				emitPartyEvent("party:wand-burst");
-			});
 
 			soundBtn?.addEventListener("click", () => {
 				partyState.audioEnabled = !partyState.audioEnabled;
@@ -90,8 +51,8 @@
 					showToast("Sonidos mágicos activados");
 				} else {
 					if (icon) icon.textContent = "🔇";
-					if (label) label.textContent = "Sin música";
-					showToast("Música desactivada");
+					if (label) label.textContent = "Silencio";
+					showToast("Sonidos mágicos desactivados");
 				}
 			});
 		}

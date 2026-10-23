@@ -53,8 +53,12 @@ body {
   50% { transform: scaleX(0.55) translateY(-4px); }
 }
 @keyframes doorPulse {
-  0%, 100% { filter: drop-shadow(0 0 0px rgba(205, 179, 123, 0)); }
-  50% { filter: drop-shadow(0 0 14px rgba(205, 179, 123, 0.9)); }
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(205, 179, 123, 0.35)); }
+  50% { filter: drop-shadow(0 0 16px rgba(205, 179, 123, 0.98)); }
+}
+@keyframes targetPulseGlow {
+  0%, 100% { filter: drop-shadow(0 0 4px rgba(205, 179, 123, 0.45)); }
+  50% { filter: drop-shadow(0 0 16px rgba(255, 183, 3, 0.95)); }
 }
 @keyframes smokeRise {
   0% { opacity: 0.8; transform: translateY(0) scale(0.8); }
@@ -77,6 +81,9 @@ body {
   transform-box: fill-box;
   transform-origin: bottom right;
   animation: wandWave 0.9s ease-in-out;
+}
+.cake-target-glow {
+  animation: targetPulseGlow 1.5s ease-in-out infinite;
 }
 
 /* Cake Door 3D Opening Effect */

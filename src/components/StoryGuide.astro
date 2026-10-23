@@ -1,62 +1,69 @@
 <story-guide
-	class="w-full lg:w-5/12 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1"
+	class="contents lg:w-5/12 lg:flex lg:flex-col lg:items-start lg:justify-center lg:text-left lg:order-1"
 >
-	<!-- Interactive Progress Pill -->
+	<!-- Top Active Story Card / Clue (Order 1 on Mobile: Above the Cake) -->
 	<div
-		class="inline-flex items-center gap-2 bg-white/90 px-4 py-1.5 rounded-full border border-palette-pink shadow-xs mb-3"
+		class="order-1 shrink-0 w-full max-w-md flex flex-col items-center lg:items-start text-center lg:text-left"
 	>
-		<span
-			id="step-badge"
-			class="w-2.5 h-2.5 rounded-full bg-palette-gold animate-ping"
-		></span>
-		<span
-			id="step-indicator-text"
-			class="text-xs font-bold uppercase tracking-wider text-palette-brown"
+		<!-- Interactive Progress Pill -->
+		<div
+			class="inline-flex items-center gap-1.5 bg-white/90 px-3 py-1 rounded-full border border-palette-pink shadow-xs mb-1 sm:mb-2"
 		>
-			Acto 1 de 3 • La Magia del Hada
-		</span>
+			<span
+				id="step-badge"
+				class="w-2 h-2 rounded-full bg-palette-gold animate-ping"
+			></span>
+			<span
+				id="step-indicator-text"
+				class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-palette-brown"
+			>
+				Paso 1 de 3 • La magia del Hada
+			</span>
+		</div>
+
+		<h2
+			id="main-heading"
+			class="font-script text-2xl sm:text-4xl lg:text-5xl text-palette-brown leading-tight mb-1 sm:mb-2"
+		>
+			¡Feliz Cumpleaños, <span
+				class="dynamic-name text-palette-rose underline decoration-palette-gold/60"
+				>Sofía</span
+			>!
+		</h2>
+
+		<p
+			id="main-instruction"
+			class="text-xs sm:text-sm lg:text-base text-palette-brown/90 bg-white/85 backdrop-blur-xs px-3.5 py-2.5 sm:p-4 rounded-2xl border border-palette-pink/70 shadow-xs w-full leading-snug sm:leading-relaxed"
+		>
+			El castillo real duerme bajo un hechizo de estrellas. <strong
+				>Toca a la pequeña princesa hada</strong
+			> (o el botón de abajo) para agitar su varita y despertar la magia del
+			pastel.
+		</p>
 	</div>
 
-	<h2
-		id="main-heading"
-		class="font-script text-4xl sm:text-5xl lg:text-6xl text-palette-brown leading-tight mb-2"
+	<!-- Bottom Fixed & Visible Primary Action Button (Order 3 on Mobile: Below the Cake) -->
+	<div
+		class="order-3 shrink-0 flex flex-col sm:flex-row lg:flex-col gap-2 w-full max-w-md pb-1.5 sm:pb-1 lg:mt-4"
 	>
-		¡Feliz Cumpleaños, <span
-			class="dynamic-name text-palette-rose underline decoration-palette-gold/60"
-			>Sofía</span
-		>!
-	</h2>
-
-	<p
-		id="main-instruction"
-		class="text-sm sm:text-base text-palette-brown/90 bg-white/80 backdrop-blur-xs p-4 sm:p-5 rounded-2xl border border-palette-pink/70 shadow-sm mb-5 max-w-md leading-relaxed"
-	>
-		El castillo real aún duerme bajo un hechizo de estrellas. <strong
-			>Toca a la pequeña princesa hada</strong
-		> (o el botón mágico de abajo) para agitar su varita, llenar el pastel de
-		polvo de hadas y despertar la magia.
-	</p>
-
-	<!-- Single Guided Primary Action Button (+ Replay Button revealed only after Act 3) -->
-	<div class="flex flex-col gap-3 w-full max-w-md">
 		<button
 			type="button"
 			id="primary-action-btn"
 			data-action="primary"
-			class="w-full py-3.5 px-6 rounded-2xl gold-badge text-white font-bold text-base shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer animate-glow"
+			class="flex-1 w-full py-3 sm:py-3.5 px-5 rounded-2xl gold-badge text-white font-bold text-sm sm:text-base shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer animate-glow"
 		>
 			<span id="primary-action-icon" aria-hidden="true">🪄</span>
-			<span id="primary-action-text">Despertar la Magia del Hada</span>
+			<span id="primary-action-text">Despertar la magia del pastel</span>
 		</button>
 
 		<button
 			type="button"
 			id="replay-magic-btn"
 			data-action="reset-cake"
-			class="hidden w-full py-3 px-5 rounded-2xl bg-white/90 hover:bg-palette-pink/30 text-palette-brown font-bold text-sm border-2 border-palette-pink shadow-sm transition-all items-center justify-center gap-2 active:scale-95 cursor-pointer"
+			class="hidden w-full sm:w-auto lg:w-full py-2.5 sm:py-3 px-4 rounded-2xl bg-white/90 hover:bg-palette-pink/30 text-palette-brown font-bold text-xs sm:text-sm border-2 border-palette-pink shadow-xs transition-all items-center justify-center gap-1.5 active:scale-95 cursor-pointer"
 		>
 			<span aria-hidden="true">🔄</span>
-			<span>Repetir la Magia del Cuento</span>
+			<span>Repetir la magia</span>
 		</button>
 	</div>
 </story-guide>
@@ -75,10 +82,10 @@
 			if (partyState.step === 1) {
 				if (stepIndicator)
 					stepIndicator.textContent =
-						"Acto 1 de 3 • La Magia del Hada";
+						"Paso 1 de 3 • La Magia del Hada";
 				if (instruction) {
 					instruction.innerHTML =
-						"El castillo real aún duerme bajo un hechizo de estrellas. <strong>Toca a la pequeña princesa hada</strong> (o el botón mágico de abajo) para agitar su varita, llenar el pastel de polvo de hadas y despertar la magia.";
+						"El castillo real aún duerme bajo un hechizo de estrellas. <strong>Toca a la pequeña princesa hada</strong> (o el botón de abajo) para agitar su varita y despertar la magia del pastel.";
 				}
 				if (primaryIcon) primaryIcon.textContent = "🪄";
 				if (primaryText)
@@ -87,9 +94,9 @@
 				replayBtn?.classList.remove("flex");
 			} else if (partyState.step === 2) {
 				if (stepIndicator)
-					stepIndicator.textContent = "Acto 2 de 3 • El Deseo Real";
+					stepIndicator.textContent = "Paso 2 de 3 • El Deseo Real";
 				if (instruction) {
-					instruction.innerHTML = `¡El polvo de hadas ha iluminado todo el castillo! Ahora pide un hermoso deseo de cumpleaños para <strong>${partyState.name}</strong> y <strong>toca las 3 velas encendidas del castillo</strong> (o el botón de abajo) para apagarlas.`;
+					instruction.innerHTML = `¡El polvo de hadas iluminó el castillo! Pide un deseo para <strong>${partyState.name}</strong> y <strong>toca las 4 velas encendidas del castillo</strong> (o el botón de abajo) para apagarlas.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "🕯️";
 				if (primaryText)
@@ -98,9 +105,9 @@
 				replayBtn?.classList.remove("flex");
 			} else if (partyState.step === 3) {
 				if (stepIndicator)
-					stepIndicator.textContent = `Acto 3 de 3 • El Secreto de la Puerta #${partyState.age}`;
+					stepIndicator.textContent = `Paso 3 de 3 • El Secreto de la Puerta #${partyState.age}`;
 				if (instruction) {
-					instruction.innerHTML = `¡Tu deseo real ha desbloqueado la <strong>Puerta Floral #${partyState.age}</strong> del pastel! Mira cómo brilla intensamente... <strong>Toca la puerta mágica</strong> (o el botón de abajo) para abrirla y descubrir el gran tesoro.`;
+					instruction.innerHTML = `¡Tu deseo desbloqueó la <strong>Puerta Floral #${partyState.age}</strong> y ahora brilla para ti! <strong>Toca la puerta mágica</strong> (o el botón de abajo) para descubrir la gran sorpresa.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "🚪";
 				if (primaryText)
@@ -112,7 +119,7 @@
 					stepIndicator.textContent =
 						"✨ Cuento Completado • ¡El Gran Tesoro!";
 				if (instruction) {
-					instruction.innerHTML = `¡Hurra! ¡Has descubierto el gran secreto del reino de <strong>${partyState.name}</strong>! Puedes volver a abrir la <strong>Tarjeta de Invitación Real</strong> o repetir la magia del cuento cuando quieras.`;
+					instruction.innerHTML = `¡Hurra! ¡Descubriste el gran tesoro del reino de <strong>${partyState.name}</strong>! Abre la <strong>Tarjeta de Invitación Real</strong> o repite la magia cuando quieras.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "💌";
 				if (primaryText)
