@@ -1,6 +1,7 @@
 <birthday-header class="contents">
+	<!-- Desktop / Tablet Header (md: and above) -->
 	<header
-		class="relative z-20 shrink-0 w-full max-w-6xl mx-auto px-3 sm:px-4 pt-2 pb-1 flex items-center justify-between gap-2"
+		class="hidden md:flex relative z-20 shrink-0 w-full max-w-6xl mx-auto px-3 sm:px-4 pt-2 pb-1 items-center justify-between gap-2"
 	>
 		<!-- Compact brand / Title left -->
 		<div
@@ -26,7 +27,7 @@
 			class="flex items-center gap-1.5 px-3 py-1 sm:py-1.5 rounded-full bg-white/90 hover:bg-palette-pink/40 text-palette-brown border border-palette-pink shadow-xs transition-all text-sm font-semibold active:scale-95 cursor-pointer shrink-0"
 			aria-label="Alternar música mágica"
 		>
-			<span id="sound-icon" aria-hidden="true">🎵</span>
+			<span id="sound-icon" data-sound-icon aria-hidden="true">🎵</span>
 			<span id="sound-label">Música</span>
 		</button>
 	</header>
@@ -38,22 +39,33 @@
 
 	class BirthdayHeaderElement extends HTMLElement {
 		connectedCallback() {
-			const soundBtn = this.querySelector('[data-action="sound"]');
+			const soundBtns = document.querySelectorAll('[data-action="sound"]');
 
-			soundBtn?.addEventListener("click", () => {
-				partyState.audioEnabled = !partyState.audioEnabled;
-				const icon = this.querySelector("#sound-icon");
-				const label = this.querySelector("#sound-label");
-				if (partyState.audioEnabled) {
-					if (icon) icon.textContent = "🎵";
-					if (label) label.textContent = "Música";
-					playSparkleChime();
-					showToast("Sonidos mágicos activados");
-				} else {
-					if (icon) icon.textContent = "🔇";
-					if (label) label.textContent = "Silencio";
-					showToast("Sonidos mágicos desactivados");
-				}
+			soundBtns.forEach((soundBtn) => {
+				soundBtn.addEventListener("click", () => {
+					partyState.audioEnabled = !partyState.audioEnabled;
+					const icon = this.querySelector("#sound-icon");
+					const mobileIcons =
+						document.querySelectorAll("[data-sound-icon]");
+					const label = this.querySelector("#sound-label");
+
+					if (partyState.audioEnabled) {
+						if (icon) icon.textContent = "🎵";
+						mobileIcons.forEach((el) => {
+							el.textContent = "🎵";
+						});
+						if (label) label.textContent = "Música";
+						playSparkleChime();
+						showToast("Sonidos mágicos activados");
+					} else {
+						if (icon) icon.textContent = "🔇";
+						mobileIcons.forEach((el) => {
+							el.textContent = "🔇";
+						});
+						if (label) label.textContent = "Silencio";
+						showToast("Sonidos mágicos desactivados");
+					}
+				});
 			});
 		}
 	}

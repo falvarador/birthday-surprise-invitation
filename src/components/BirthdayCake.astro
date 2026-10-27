@@ -1,6 +1,6 @@
 <birthday-cake class="order-2 flex-1 min-h-0 w-full lg:w-7/12 flex items-center justify-center relative">
 	<!-- Interactive SVG Cake Container -->
-	<div class="w-auto h-full max-h-[48dvh] sm:max-h-[52dvh] lg:max-h-[78dvh] aspect-[520/610] relative flex items-center justify-center">
+	<div class="w-auto h-full max-h-[50dvh] sm:max-h-[56dvh] lg:max-h-[78dvh] aspect-[520/610] relative flex items-center justify-center">
 		<svg
 			id="birthday-cake-svg"
 			viewBox="0 0 520 610"
@@ -481,6 +481,17 @@
 			</g>
 		</svg>
 	</div>
+
+	<!-- Mobile Floating Independent Audio Control Below Cake (< 768px) -->
+	<button
+		type="button"
+		id="btn-sound-mobile"
+		data-action="sound"
+		class="md:hidden absolute bottom-1 right-2 z-30 w-10 h-10 rounded-full bg-white/85 backdrop-blur-sm hover:bg-palette-pink/40 text-palette-brown border border-palette-pink shadow-sm transition-all flex items-center justify-center active:scale-95 cursor-pointer"
+		aria-label="Alternar música mágica"
+	>
+		<span data-sound-icon aria-hidden="true">🎵</span>
+	</button>
 </birthday-cake>
 
 <script>

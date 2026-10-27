@@ -7,11 +7,11 @@ Garantiza una tipografía responsiva y accesible en dispositivos móviles (`< 64
 ## Requirements
 
 ### Requirement: Eliminación de micro-textos en móvil en el encabezado e indicador de progreso
-El sistema SHALL eliminar los micro-textos en dispositivos móviles (`< 640px`) en la barra superior (`header`) y en el indicador de paso (`#step-indicator-text`), aplicando `text-sm` en el título del evento y en el botón de música (`#btn-sound`), y `text-sm sm:text-xs` en `#step-indicator-text` con buen contraste.
+El sistema SHALL eliminar los micro-textos en dispositivos móviles (`< 640px`) en el indicador de paso (`#step-indicator-text`) aplicando `text-sm sm:text-xs` con buen contraste, y MUST mantener `text-sm` en el título del evento y en el botón de música (`#btn-sound`) dentro del `<header>` cuando este es visible en pantallas `md:` y superiores, mientras en móvil (`< 768px`) el `<header>` permanece oculto (`hidden md:flex`) y el control de sonido se muestra como botón circular flotante (`w-10 h-10`).
 
 #### Scenario: Lectura del encabezado e indicador de paso en pantallas móviles
-- **WHEN** el usuario visualiza el encabezado superior y la píldora de progreso en una pantalla móvil (`< 640px`)
-- **THEN** el título del evento y el botón `#btn-sound` se muestran con clase `text-sm`, y `#step-indicator-text` se muestra con `text-sm sm:text-xs` sin emplear `text-xs`, `text-[11px]` ni `text-[10px]` en móvil
+- **WHEN** el usuario visualiza la pantalla principal en un dispositivo móvil (`< 640px`) y en pantallas `md:` o superiores
+- **THEN** en móvil `#step-indicator-text` se muestra con `text-sm sm:text-xs` y el botón flotante de sonido tiene dimensiones `w-10 h-10` sin micro-textos, mientras que desde `md:` el `<header>` muestra el título del evento y `#btn-sound` con clase `text-sm`
 
 ### Requirement: Jerarquía tipográfica y lectura cómoda de la historia principal y acción primaria
 El sistema SHALL presentar en dispositivos móviles (`< 640px`) el título principal (`#main-heading`) con escala `text-4xl sm:text-5xl lg:text-6xl`, la caja de instrucción narrativa (`#main-instruction`) con `text-base sm:text-lg`, interlineado `leading-snug` y relleno compacto (`p-3.5 sm:p-4`), y el botón de acción principal (`#primary-action-btn`) con `text-base sm:text-lg font-bold`.
