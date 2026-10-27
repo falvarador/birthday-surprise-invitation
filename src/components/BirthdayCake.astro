@@ -1,6 +1,6 @@
 <birthday-cake class="order-2 flex-1 min-h-0 w-full lg:w-7/12 flex items-center justify-center relative">
 	<!-- Interactive SVG Cake Container -->
-	<div class="w-auto h-full max-h-[48dvh] sm:max-h-[52dvh] lg:max-h-[78dvh] aspect-[520/610] relative flex items-center justify-center">
+	<div class="w-auto h-full max-h-[50dvh] sm:max-h-[56dvh] lg:max-h-[78dvh] aspect-[520/610] relative flex items-center justify-center">
 		<svg
 			id="birthday-cake-svg"
 			viewBox="0 0 520 610"
@@ -270,12 +270,16 @@
 			<!-- ==================== 6. DECORATIVE BUTTERFLIES, PEARLS & FLOWERS ON CAKE SIDE ==================== -->
 			<g id="cake-side-decorations">
 				<!-- Left Gold Butterfly -->
-				<g transform="translate(115, 280) rotate(-18)" class="animate-butterfly cursor-pointer" data-cake-action="wand">
-					<use href="#gold-butterfly" transform="scale(1.1)"></use>
+				<g transform="translate(138, 282) rotate(-18)" class="cursor-pointer" data-cake-action="wand">
+					<g class="animate-butterfly">
+						<use href="#gold-butterfly" transform="scale(1.1)"></use>
+					</g>
 				</g>
 				<!-- Right Gold Butterfly -->
-				<g transform="translate(395, 315) rotate(15)" class="animate-butterfly cursor-pointer" data-cake-action="wand">
-					<use href="#gold-butterfly" transform="scale(1.25)"></use>
+				<g transform="translate(380, 315) rotate(15)" class="cursor-pointer" data-cake-action="wand">
+					<g class="animate-butterfly">
+						<use href="#gold-butterfly" transform="scale(1.25)"></use>
+					</g>
 				</g>
 				<!-- Soft Pink Daisy Flowers on Cake Wall -->
 				<g transform="translate(160, 298) scale(1.4)">
@@ -481,6 +485,17 @@
 			</g>
 		</svg>
 	</div>
+
+	<!-- Mobile Floating Independent Audio Control Below Cake (< 768px) -->
+	<button
+		type="button"
+		id="btn-sound-mobile"
+		data-action="sound"
+		class="md:hidden absolute bottom-1 right-2 z-30 w-10 h-10 rounded-full bg-white/85 backdrop-blur-sm hover:bg-palette-pink/40 text-palette-brown border border-palette-pink shadow-sm transition-all flex items-center justify-center active:scale-95 cursor-pointer"
+		aria-label="Alternar música mágica"
+	>
+		<span data-sound-icon aria-hidden="true">🎵</span>
+	</button>
 </birthday-cake>
 
 <script>
@@ -545,9 +560,17 @@
 			partyState.candlesLit[index] = false;
 			const flameEl = this.querySelector(`#flame-${index}`) as HTMLElement | SVGElement | null;
 			if (flameEl) {
-				flameEl.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+				flameEl.classList.remove('animate-flame');
+				flameEl.style.transformBox = 'fill-box';
+				flameEl.style.transformOrigin = 'center bottom';
+				flameEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
 				flameEl.style.opacity = '0';
-				flameEl.style.transform = 'scale(0.1)';
+				flameEl.style.transform = 'scale(0)';
+				setTimeout(() => {
+					if (!partyState.candlesLit[index]) {
+						flameEl.style.display = 'none';
+					}
+				}, 300);
 			}
 
 			playCandleBlowSound();
@@ -642,8 +665,10 @@
 			([0, 1, 2, 3] as const).forEach((idx) => {
 				const flameEl = this.querySelector(`#flame-${idx}`) as HTMLElement | SVGElement | null;
 				if (flameEl) {
-					flameEl.style.opacity = '1';
-					flameEl.style.transform = 'scale(1)';
+					flameEl.style.display = '';
+					flameEl.style.opacity = '';
+					flameEl.style.transform = '';
+					flameEl.classList.add('animate-flame');
 				}
 			});
 
