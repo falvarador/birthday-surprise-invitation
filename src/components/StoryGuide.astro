@@ -17,7 +17,7 @@
 				id="step-indicator-text"
 				class="text-sm sm:text-xs font-bold uppercase tracking-wider text-palette-brown"
 			>
-				Paso 1 de 3 • La magia del Hada
+				Paso 1 de 3 • La magia de la princesa
 			</span>
 		</div>
 
@@ -35,10 +35,9 @@
 			id="main-instruction"
 			class="text-base sm:text-lg text-palette-brown/90 bg-white/85 backdrop-blur-xs p-3.5 sm:p-4 rounded-2xl border border-palette-pink/70 shadow-xs w-full leading-snug"
 		>
-			El castillo real duerme bajo un hechizo de estrellas. <strong
-				>Toca a la pequeña princesa hada</strong
-			> (o el botón de abajo) para agitar su varita y despertar la magia del
-			pastel.
+			El castillo real duerme bajo un velo de estrellas. <strong
+				>Toca a la pequeña princesa</strong
+			> para agitar su varita y despertar la magia del castillo.
 		</p>
 	</div>
 
@@ -53,7 +52,8 @@
 			class="flex-1 w-full py-2.5 sm:py-3.5 px-5 rounded-2xl gold-badge text-white font-bold text-base sm:text-lg shadow-md hover:brightness-105 active:scale-95 transition-all flex items-center justify-center gap-2 cursor-pointer animate-glow"
 		>
 			<span id="primary-action-icon" aria-hidden="true">🪄</span>
-			<span id="primary-action-text">Despertar la magia del pastel</span>
+			<span id="primary-action-text">Despertar la magia del castillo</span
+			>
 		</button>
 
 		<button
@@ -82,36 +82,36 @@
 			if (partyState.step === 1) {
 				if (stepIndicator)
 					stepIndicator.textContent =
-						"Paso 1 de 3 • La Magia del Hada";
+						"Paso 1 de 3 • La Magia de la princesa";
 				if (instruction) {
 					instruction.innerHTML =
-						"El castillo real aún duerme bajo un hechizo de estrellas. <strong>Toca a la pequeña princesa hada</strong> (o el botón de abajo) para agitar su varita y despertar la magia del pastel.";
+						"El castillo real aún duerme bajo un velo de estrellas. <strong>Toca a la pequeña princesa</strong> para agitar su varita y despertar la magia del castillo.";
 				}
 				if (primaryIcon) primaryIcon.textContent = "🪄";
 				if (primaryText)
-					primaryText.textContent = "Despertar la Magia del Hada";
+					primaryText.textContent = "Despertar la magia del castillo";
 				replayBtn?.classList.add("hidden");
 				replayBtn?.classList.remove("flex");
 			} else if (partyState.step === 2) {
 				if (stepIndicator)
-					stepIndicator.textContent = "Paso 2 de 3 • El Deseo Real";
+					stepIndicator.textContent = "Paso 2 de 3 • El deseo real";
 				if (instruction) {
-					instruction.innerHTML = `¡El polvo de hadas iluminó el castillo! Pide un deseo para <strong>${partyState.name}</strong> y <strong>toca las 4 velas encendidas del castillo</strong> (o el botón de abajo) para apagarlas.`;
+					instruction.innerHTML = `¡El polvo de mágico iluminó el castillo! Pide un deseo para <strong>${partyState.name}</strong> y <strong>toca las 4 velas encendidas del castillo</strong> para apagarlas.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "🕯️";
 				if (primaryText)
-					primaryText.textContent = "Soplar las Velas del Castillo";
+					primaryText.textContent = "Soplar las velas del castillo";
 				replayBtn?.classList.add("hidden");
 				replayBtn?.classList.remove("flex");
 			} else if (partyState.step === 3) {
 				if (stepIndicator)
-					stepIndicator.textContent = `Paso 3 de 3 • El Secreto de la Puerta #${partyState.age}`;
+					stepIndicator.textContent = `Paso 3 de 3 • El secreto de la puerta #${partyState.age}`;
 				if (instruction) {
-					instruction.innerHTML = `¡Tu deseo desbloqueó la <strong>Puerta Floral #${partyState.age}</strong> y ahora brilla para ti! <strong>Toca la puerta mágica</strong> (o el botón de abajo) para descubrir la gran sorpresa.`;
+					instruction.innerHTML = `¡Tu deseo desbloqueó la <strong>Puerta Floral</strong> y ahora brilla para ti! <strong>Abre la puerta mágica</strong> para descubrir la gran sorpresa.`;
 				}
 				if (primaryIcon) primaryIcon.textContent = "🚪";
 				if (primaryText)
-					primaryText.textContent = `¡Abrir la Puerta Mágica #${partyState.age}!`;
+					primaryText.textContent = `¡Abrir la puerta mágica #${partyState.age}!`;
 				replayBtn?.classList.add("hidden");
 				replayBtn?.classList.remove("flex");
 			} else if (partyState.step === 4) {
@@ -124,7 +124,7 @@
 				if (primaryIcon) primaryIcon.textContent = "💌";
 				if (primaryText)
 					primaryText.textContent =
-						"Ver Tarjeta de Invitación Real ✨";
+						"Ver la tarjeta de Invitación Real ✨";
 				replayBtn?.classList.remove("hidden");
 				replayBtn?.classList.add("flex");
 			}
