@@ -3,9 +3,11 @@
 		id="toast-banner"
 		role="status"
 		aria-live="polite"
-		class="fixed bottom-5 left-1/2 -translate-x-1/2 z-[70] pointer-events-none opacity-0 transition-all duration-300 transform translate-y-4"
+		class="fixed bottom-5 left-1/2 -translate-x-1/2 z-70 pointer-events-none opacity-0 transition-all duration-300 transform translate-y-4"
 	>
-		<div class="bg-palette-brown text-white px-5 py-2.5 rounded-full shadow-lg border border-palette-gold flex items-center gap-2 text-xs sm:text-sm font-semibold">
+		<div
+			class="bg-palette-brown text-white px-5 py-2.5 rounded-full shadow-lg border border-palette-gold flex items-center gap-2 text-xs sm:text-sm font-semibold"
+		>
 			<span aria-hidden="true">✨</span>
 			<span id="toast-message">¡Actualización mágica completada!</span>
 		</div>
@@ -18,32 +20,32 @@
 
 		private handleToast = (e: Event) => {
 			const customEvent = e as CustomEvent<{ message: string }>;
-			const banner = this.querySelector('#toast-banner');
-			const messageEl = this.querySelector('#toast-message');
+			const banner = this.querySelector("#toast-banner");
+			const messageEl = this.querySelector("#toast-message");
 			if (!banner || !messageEl) return;
 
 			messageEl.textContent = customEvent.detail.message;
-			banner.classList.remove('opacity-0', 'translate-y-4');
-			banner.classList.add('opacity-100', 'translate-y-0');
+			banner.classList.remove("opacity-0", "translate-y-4");
+			banner.classList.add("opacity-100", "translate-y-0");
 
 			window.clearTimeout(this.toastTimer);
 			this.toastTimer = window.setTimeout(() => {
-				banner.classList.remove('opacity-100', 'translate-y-0');
-				banner.classList.add('opacity-0', 'translate-y-4');
+				banner.classList.remove("opacity-100", "translate-y-0");
+				banner.classList.add("opacity-0", "translate-y-4");
 			}, 3000);
 		};
 
 		connectedCallback() {
-			window.addEventListener('party:toast', this.handleToast);
+			window.addEventListener("party:toast", this.handleToast);
 		}
 
 		disconnectedCallback() {
-			window.removeEventListener('party:toast', this.handleToast);
+			window.removeEventListener("party:toast", this.handleToast);
 			window.clearTimeout(this.toastTimer);
 		}
 	}
 
-	if (!customElements.get('toast-banner')) {
-		customElements.define('toast-banner', ToastBannerElement);
+	if (!customElements.get("toast-banner")) {
+		customElements.define("toast-banner", ToastBannerElement);
 	}
 </script>

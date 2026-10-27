@@ -16,12 +16,12 @@ export interface PartyState {
 export const partyState: PartyState = {
   name: 'Sofía',
   age: '4',
-  dateISO: '2026-11-14',
-  timeText: '3:00 PM – 6:30 PM',
+  dateISO: '2026-11-15',
+  timeText: '10:00 AM',
   venue: 'Casa Club, Condominio Uniko San Francisco',
   dressCode: ' Ropa fresca y relajada',
   surpriseMessage:
-    '"¡Ponte tu vestido de princesa favorito, piquito! ¡Tus mejores amigos, familiares y este pastel de castillo de hadas te están esperando solo a ti!"',
+    '"¡Ponte tu vestido de princesa favorito, piquito! ¡Tus seres queridos, familiares y amigos te están esperando emocionados!"',
   wandActivated: false,
   candlesLit: [true, true, true, true],
   doorOpen: false,
