@@ -556,9 +556,17 @@
 			partyState.candlesLit[index] = false;
 			const flameEl = this.querySelector(`#flame-${index}`) as HTMLElement | SVGElement | null;
 			if (flameEl) {
-				flameEl.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+				flameEl.classList.remove('animate-flame');
+				flameEl.style.transformBox = 'fill-box';
+				flameEl.style.transformOrigin = 'center bottom';
+				flameEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
 				flameEl.style.opacity = '0';
-				flameEl.style.transform = 'scale(0.1)';
+				flameEl.style.transform = 'scale(0)';
+				setTimeout(() => {
+					if (!partyState.candlesLit[index]) {
+						flameEl.style.display = 'none';
+					}
+				}, 300);
 			}
 
 			playCandleBlowSound();
@@ -653,8 +661,10 @@
 			([0, 1, 2, 3] as const).forEach((idx) => {
 				const flameEl = this.querySelector(`#flame-${idx}`) as HTMLElement | SVGElement | null;
 				if (flameEl) {
-					flameEl.style.opacity = '1';
-					flameEl.style.transform = 'scale(1)';
+					flameEl.style.display = '';
+					flameEl.style.opacity = '';
+					flameEl.style.transform = '';
+					flameEl.classList.add('animate-flame');
 				}
 			});
 
