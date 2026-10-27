@@ -5,7 +5,9 @@ interface Props {
 	title?: string;
 }
 
-const { title = "Castillo mágico de Sofía" } = Astro.props;
+const {
+	title = "✨ ¡Tienes una Invitación Real! | Cumpleaños #4 de Sofía 🎂👑",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -13,10 +15,81 @@ const { title = "Castillo mágico de Sofía" } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<meta
+			name="description"
+			content="Un reino encantado de dulces y magia te espera. Toca para descubrir la sorpresa y acompañar a la Princesa Sofía en su fiesta de cumpleaños número 4."
+		/>
+		<meta name="theme-color" content="#E6C0CF" />
+
+		<!-- Favicon en línea con emoji en formato SVG (no depende de archivos externos) -->
+		<link
+			rel="icon"
+			type="image/svg+xml"
+			href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>"
+		/>
+		<meta name="generator" content={Astro.generator} />
+
+		<Fragment
+			set:html={`<!-- =========================================================================
+		     GUÍA DE PREVISUALIZACIÓN EN REDES SOCIALES (WhatsApp, Facebook, X):
+		     1. Reemplaza "https://tu-dominio.com/" en og:url, og:image y twitter:image
+		        con la URL real de producción (ej. GitHub Pages, Vercel o Netlify).
+		     2. La imagen "og-preview.jpg" DEBE tener ruta absoluta (https://...),
+		        dimensiones recomendadas de 1200x630 px y un peso menor a 300 KB.
+		     ========================================================================= -->`}
+		/>
+
+		<!-- Open Graph (WhatsApp, Facebook, iMessage, Telegram) -->
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="es_LA" />
+		<meta property="og:site_name" content="El Reino Mágico de Sofía" />
+		<meta
+			property="og:title"
+			content="✨ ¡Estás invitado al Cumpleaños #4 de Sofía! 🎂👑"
+		/>
+		<meta
+			property="og:description"
+			content="Abre la puerta mágica del castillo y descubre los detalles de esta celebración tan especial por los 4 añitos de Sofía. ¡Te esperamos!"
+		/>
+		<!-- Reemplazar con la URL final de producción (ej. GitHub Pages, Vercel o Netlify) -->
+		<meta property="og:url" content="https://tu-dominio.com/" />
+		<!-- IMPORTANTE: WhatsApp y Facebook exigen URL absoluta (https://...), 1200x630 px y < 300 KB -->
+		<meta
+			property="og:image"
+			content="https://tu-dominio.com/og-preview.jpg"
+		/>
+		<meta
+			property="og:image:secure_url"
+			content="https://tu-dominio.com/og-preview.jpg"
+		/>
+		<meta property="og:image:type" content="image/jpeg" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta
+			property="og:image:alt"
+			content="Pastel de castillo encantado para el cuarto cumpleaños de la Princesa Sofía"
+		/>
+
+		<!-- Twitter / X Card -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta
+			name="twitter:title"
+			content="✨ ¡Invitación Real! Cumpleaños #4 de Sofía 🎂👑"
+		/>
+		<meta
+			name="twitter:description"
+			content="Toca el pastel encantado y descubre la sorpresa que tenemos preparada para celebrar los 4 años de Sofía."
+		/>
+		<meta
+			name="twitter:image"
+			content="https://tu-dominio.com/og-preview.jpg"
+		/>
+		<meta
+			name="twitter:image:alt"
+			content="Invitación al cumpleaños número 4 de Sofía"
+		/>
+
 		<script
 			is:inline
 			src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"
